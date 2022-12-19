@@ -1,0 +1,4 @@
+.DS_STORE
+public/
+bin/data/credentials.json
+bin/data/keys-*.json
