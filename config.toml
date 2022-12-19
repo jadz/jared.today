@@ -1,0 +1,22 @@
+baseURL = 'https://jared.today'
+languageCode = 'en-us'
+title = 'Jared Today'
+theme = 'prickly-pear'
+
+[params]
+    colortheme = "white"
+    description = "This is a sample piece of text for the description"
+    mainSection = "Status"
+    mainSectionTitle = "Status"
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "Status"
+url = "/status"
+weight = 2
+
+staticDir = ['static']
