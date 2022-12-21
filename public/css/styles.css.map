@@ -1,0 +1,21 @@
+{
+	"version": 3,
+	"file": "styles.css",
+	"sourceRoot": "/Users/jared/Dropbox/04 - Resources/Code/Projects/jared.today",
+	"sources": [
+		"themes/prickly-pear/assets/scss/style.scss",
+		"themes/prickly-pear/assets/scss/_variables.scss",
+		"themes/prickly-pear/assets/scss/colors/white.scss",
+		"themes/prickly-pear/assets/scss/_mixins.scss",
+		"themes/prickly-pear/assets/scss/_fonts.scss"
+	],
+	"sourcesContent": [
+		"@import \"variables\";\n@import \"colors/white\";\n@import \"mixins\";\n@import \"fonts\";\n\nbody {\n  font-display: swap;\n  font-weight: 400;\n  font-size: $font-size;\n  font-family: $font-family-body;\n  line-height: $line-height;\n\n  @include antialias();\n}",
+		"// Fonts\n$font-family-body: \"JetBrains Mono\", monospace;\n$font-family-mono: \"JetBrains Mono\", monospace;\n$font-family-tt: \"Inconsolata\", monospace;\n$font-size: 18px;\n$line-height: 1.725;\n$page-width: 72rem;\n// Logo\n$logo-width: 50px;\n$logo-height: 50px;\n$logo-grayout: true;\n// Colors\n$colors: \"dark\" // white dark light classic",
+		"// by @sergodeeva (https://github.com/sergodeeva)\n$color-background: #FFFFFF;\n$color-footer-mobile-1: darken($color-background, 2%);\n$color-footer-mobile-2: darken($color-background, 10%);\n$color-background-code: darken($color-background, 2%);\n$color-border: #666;\n$color-meta: #666;\n$color-meta-code: lighten($color-meta, 10%);\n$color-link: rgba(212, 128, 170, 1);\n$color-text: #383838;\n$color-accent-3: #8c8c8c;\n$color-accent-2: #383838;\n$color-accent-1: #2bbc8a;\n$color-quote: #2bbc8a;",
+		"@mixin antialias() {\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n}\n@mixin hyphens($value) {\n  hyphens: $value;\n  -moz-hyphens: $value;\n  -ms-hyphens: $value;\n  -webkit-hyphens: $value;\n}\n@mixin underline($size, $color) {\n  background-image: linear-gradient(transparent, transparent $size, $color $size, $color);\n  background-position: bottom;\n  background-size: 100% 6px;\n  background-repeat: repeat-x;\n}\n@mixin no-select() {\n  user-select: none;\n  -khtml-user-select: none;\n}",
+		"@font-face {\n  font-style: normal;\n  font-family: \"JetBrains Mono\";\n  font-display: swap;\n  src: local(\"JetBrains Mono\"), local(\"JetBrains-Mono\"), url(\"../lib/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2\") format(\"woff2\"), url(\"../lib/JetBrainsMono/web/woff/JetBrainsMono-Regular.woff\") format(\"woff\"), url(\"../lib/JetBrainsMono/web/eot/JetBrainsMono-Regular.eot\") format(\"embedded-opentype\"), url(\"../lib/JetBrainsMono/ttf/JetBrainsMono-Regular.ttf\") format(\"truetype\");\n};"
+	],
+	"names": [],
+	"mappings": "AIAA,UAAU,CACR,UAAU,CAAE,MAAM,CAClB,WAAW,CAAE,gBAAgB,CAC7B,YAAY,CAAE,IAAI,CAClB,GAAG,CAAE,uBAAuB,CAAE,uBAAuB,CAAE,iEAAiE,CAAC,eAAe,CAAE,+DAA+D,CAAC,cAAc,CAAE,6DAA6D,CAAC,2BAA2B,CAAE,yDAAyD,CAAC,kBAAkB,CJCnY,AAAA,IAAI,AAAC,CACH,YAAY,CAAE,IAAI,CAClB,WAAW,CAAE,GAAG,CAChB,SAAS,CCJC,IAAI,CDKd,WAAW,CCRM,gBAAgB,CAAE,SAAS,CDS5C,WAAW,CCLC,KAAK,CEJjB,uBAAuB,CAAE,SAAS,CAClC,sBAAsB,CAAE,WAAW,CHWpC"
+}
