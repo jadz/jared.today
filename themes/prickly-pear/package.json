@@ -1,0 +1,24 @@
+{
+  "name": "cactus",
+  "version": "1.0.0",
+  "description": "A hugo theme for personal blog. Fork from hexo theme [cactus](https://github.com/probberechts/hexo-theme-cactus) created by @probberechts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-tw": "npx tailwindcss -i ./assets/main.css -o ./assets/extended-style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monkeyWzr/hugo-theme-cactus.git"
+  },
+  "keywords": [],
+  "author": "Jared Mooring <jared.mooring@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/monkeyWzr/hugo-theme-cactus/issues"
+  },
+  "homepage": "https://github.com/monkeyWzr/hugo-theme-cactus#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}

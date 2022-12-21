@@ -1,0 +1,14 @@
+@import "variables";
+@import "colors/{{ site.Params.colortheme | default "white" }}";
+@import "mixins";
+@import "fonts";
+
+body {
+  font-display: swap;
+  font-weight: 400;
+  font-size: $font-size;
+  font-family: $font-family-body;
+  line-height: $line-height;
+
+  @include antialias();
+}

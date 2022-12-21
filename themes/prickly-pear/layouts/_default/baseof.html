@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+<body class="max-w-screen-xl mx-auto pl-8 pr-8 box-border">
+  <div class="flex flex-col justify-center break-words min-h-full pt-16 pb-16">
+
+    {{ partial "header.html" . }}
+
+    {{ block "main" . }}
+    {{ end }}
+
+    {{ partial "footer.html" . }}
+
+  </div>
+</body>
+
+<link rel="stylesheet" href={{ "lib/font-awesome/css/all.min.css" | relURL }}>
+<script src={{ "lib/jquery/jquery.min.js" | relURL }}></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src={{ "js/main.js" | relURL }}></script>
+<script src={{ "js/charts.js" | relURL }}></script>
+</html>

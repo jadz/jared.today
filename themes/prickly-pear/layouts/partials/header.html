@@ -1,0 +1,19 @@
+<header id="header" class="mb-8">
+  <a href="{{ .Site.BaseURL }}">
+    <!-- <div class="inline-block w-50 h-50 float-left mr-px-20 bg-auto bg-[url('{{"images/logo.png" | absURL}}')]" id="logo"></div> -->
+    <div class="inline-block grayscale hover:filter-none w-[50px] h-[50px] float-left mr-[20px] bg-logo" id="logo" style="background-size: 50px 50px"></div>
+    <div id="title">
+      <h1 class="text-heading-grey font-bold">{{ .Site.Title }}</h1>
+    </div>
+  </a>
+  <div id="nav" class="text-gorgeous-green tracking-[.01em] font-extralight not-italic text-sm">
+    <ul class="mr-[20px]">
+      <li class="icon border-dotted">
+        <a class="" href="#" aria-label="Menu"><i class="" aria-hidden="true"></i></a>
+      </li>
+      {{ range .Site.Menus.main }}
+        <li class="inline-block align-middle mr-[15px] border-dotted border-r-[1px] border-gorgeous-green last:border-r-0"><a class="mr-[15px] hover:underline" href="{{ .URL }}">{{ .Name }}</a></li>
+      {{ end }}
+    </ul>
+  </div>
+</header>
