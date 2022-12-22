@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import os
+import base64
 import pandas as pd
 import json as json
 import numpy as np
@@ -50,7 +51,7 @@ SERVICE_ACCOUNT_FILE = 'keys-local.json'
 GOOGLE_AUTH_TYPE = os.environ.get("GOOGLE_AUTH_TYPE")
 GOOGLE_PROJECT_ID = os.environ.get("GOOGLE_PROJECT_ID")
 GOOGLE_PRIVATE_KEY_ID = os.environ.get("GOOGLE_PRIVATE_KEY_ID")
-GOOGLE_PRIVATE_KEY = os.environ.get("GOOGLE_PRIVATE_KEY")
+GOOGLE_PRIVATE_KEY = base64.b64decode(os.environ.get("GOOGLE_PRIVATE_KEY"))
 GOOGLE_CLIENT_EMAIL = os.environ.get("GOOGLE_CLIENT_EMAIL") #
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
 GOOGLE_AUTH_URI = os.environ.get("GOOGLE_AUTH_URI")
