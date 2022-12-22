@@ -1,3 +1,4 @@
 .DS_STORE
 bin/data/credentials.json
 bin/data/keys-*.json
+static/chart-data/data.json
