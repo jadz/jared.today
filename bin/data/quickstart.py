@@ -1,7 +1,9 @@
 from __future__ import print_function
 
-import os.path
+import os
 import pandas as pd
+import json as json
+import numpy as np
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -11,59 +13,173 @@ from googleapiclient.errors import HttpError
 
 from google.oauth2 import service_account
 
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
-# If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-
-SERVICE_ACCOUNT_FILE = 'key-dev.json'
-
-credentials = None
-credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-
-SAMPLE_SPREADSHEET_ID = '1ohNM7O8Ecg1EtI3WLv3MbyuKLP7gm7WQFufcqylxeUQ'
-SAMPLE_RANGE_NAME = 'Daily Log Test!A1:N498'
-
-def main():
-
-    try:
-        service = build('sheets', 'v4', credentials=credentials)
-
-        # Call the Sheets API
-        daily_log_sheet = service.spreadsheets()
-        daily_log_results = daily_log_sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME).execute()
-        daily_log_values = daily_log_results.get('values', [])
-
-        if not daily_log_values:
-            print('No data found.')
-            exit()
-
-        total_number_columns = len(daily_log_values[0])
-
-        validated_list_for_data_frame = []
-        validated_list_for_data_frame.append(daily_log_values[0])
-
-        for i in range(1, len(daily_log_values)):
-            # Fill the rest of the list with empty values
-            number_columns = len(daily_log_values[i])
-            daily_log_values[i].extend([''] * (total_number_columns - number_columns))
-            validated_list_for_data_frame.append(daily_log_values[i])
-
-        df = make_data_frame_from_list(validated_list_for_data_frame)
-
-        make_body_fat_data(df)
-
-
-    except HttpError as err:
-        print(err)
+def calculate_calorie_percent(x,y):
+    return (x-y)/x*100
 
 def make_data_frame_from_list(list):
     cols = list.pop(0)
     df = pd.DataFrame(data=list, columns=cols)
-    df['Date'] = pd.to_datetime(df['Date'])
+    dfCols = df.columns
+    # Set the Date column to be date time dType
+    df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+
+    # For every other column, make it numeric
+    df [dfCols[1:]] = df[cols[1:]].apply(pd.to_numeric, errors='coerce')
+    
+    # Set the index of the data frame to be a date
+    df.set_index(['Date'], inplace=True)
+
+    df['Calories Percent'] = df.apply(lambda x: calculate_calorie_percent(x['Calories Burned'], x['Calories Consumed']), axis=1)
+
     return df
 
-def make_body_fat_data(df):
-    print(df)
+# If modifying these scopes, delete the file token.json.
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
-if __name__ == '__main__':
-    main()
+SERVICE_ACCOUNT_FILE = 'keys-local.json'
+
+## TODO
+## Update the bash file to load lal the env variables from the json file
+## Update this to use service_info pulling from each env var
+## Update amplify to pull from env vars
+## Create lambda function to hit webook on interval
+
+GOOGLE_AUTH_TYPE = os.environ.get("GOOGLE_AUTH_TYPE")
+GOOGLE_PROJECT_ID = os.environ.get("GOOGLE_PROJECT_ID")
+GOOGLE_PRIVATE_KEY_ID = os.environ.get("GOOGLE_PRIVATE_KEY_ID")
+GOOGLE_PRIVATE_KEY = os.environ.get("GOOGLE_PRIVATE_KEY")
+GOOGLE_CLIENT_EMAIL = os.environ.get("GOOGLE_CLIENT_EMAIL") #
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+GOOGLE_AUTH_URI = os.environ.get("GOOGLE_AUTH_URI")
+GOOGLE_TOKEN_URI = os.environ.get("GOOGLE_TOKEN_URI") #
+GOOGLE_AUTH_PROVIDER = os.environ.get("GOOGLE_AUTH_PROVIDER")
+GOOGLE_CLIENT_X509 = os.environ.get("GOOGLE_CLIENT_X509")
+
+# credentials = None
+credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+account_info = {
+    "type": GOOGLE_AUTH_TYPE,
+    "project_id": GOOGLE_PROJECT_ID,
+    "private_key_id": GOOGLE_PRIVATE_KEY_ID,
+    "private_key": GOOGLE_PRIVATE_KEY,
+    "client_email": GOOGLE_CLIENT_EMAIL,
+    "client_id": GOOGLE_CLIENT_ID,
+    "auth_uri": GOOGLE_AUTH_URI,
+    "token_uri": GOOGLE_TOKEN_URI,
+    "auth_provider_x509_cert_url": GOOGLE_AUTH_PROVIDER,
+    "client_x509_cert_url": GOOGLE_CLIENT_X509
+}
+
+credentials = service_account.Credentials.from_service_account_info(account_info, scopes=SCOPES)
+
+
+SAMPLE_SPREADSHEET_ID = '1ohNM7O8Ecg1EtI3WLv3MbyuKLP7gm7WQFufcqylxeUQ'
+SAMPLE_RANGE_NAME = 'Daily Log Test!A1:N498'
+
+service = build('sheets', 'v4', credentials=credentials)
+
+# Call the Sheets API
+daily_log_sheet = service.spreadsheets()
+daily_log_results = daily_log_sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME).execute()
+daily_log_values = daily_log_results.get('values', [])
+
+if not daily_log_values:
+    print('No data found.')
+    exit()
+
+total_number_columns = len(daily_log_values[0])
+
+validated_list_for_data_frame = []
+validated_list_for_data_frame.append(daily_log_values[0])
+
+for i in range(1, len(daily_log_values)):
+    # Fill the rest of the list with empty values
+    number_columns = len(daily_log_values[i])
+    daily_log_values[i].extend([''] * (total_number_columns - number_columns))
+    validated_list_for_data_frame.append(daily_log_values[i])
+
+df = make_data_frame_from_list(validated_list_for_data_frame)
+
+def single_line_graph(df, column, weeks):
+    now = datetime.now().date()
+
+    monday_this_week = now - timedelta(days = now.weekday())
+    sunday_this_week = monday_this_week + timedelta(days=6)
+
+    monday_12_weeks_ago = monday_this_week - timedelta(weeks=weeks)
+
+    df2 = df.query("Date >= @monday_12_weeks_ago and Date <= @now") \
+    .groupby(pd.Grouper(freq='W', level='Date'))[column].mean(numeric_only=True)
+
+def heatmap_data(df, column, months):
+    output_data = []
+
+    for n in range(0,months):
+        start_month = (datetime.now().date() - relativedelta(months=n)).replace(day=1)
+        end_month = start_month + relativedelta(months=1)
+
+        # data = df.query("Date >= @start_month and Date < @end_month")[column].tolist()
+        data2 = df.query("Date >= @start_month and Date < @end_month")[column]
+
+        month_data = {}
+        month_data["name"] = start_month.strftime("%B")
+
+        # pad out the array with 0's if the data starts mid month
+        reformatted_data = []
+        ## FIXME -- This is really hacky
+        foo = data2.head(1).index.day.tolist()
+        if (len(foo) > 0):
+            first_day = data2.head(1).index.day.tolist()[0]
+
+            if first_day > 1:
+                for i in range(1, first_day):
+                    points = {}
+                    points["x"] = str(i)
+                    points["y"] = 0
+                    reformatted_data.append(points)
+
+        for index, item in data2.items():
+            points = {}
+            # points["x"] = str(index+1)
+            points["x"] = index.strftime("%d")
+            points["y"] = np.nan_to_num(item)
+            reformatted_data.append(points)
+
+        month_data["data"] = reformatted_data
+
+        output_data.append(month_data)
+
+    return output_data
+
+push_ups = heatmap_data(df, 'Push Up Count', 3)
+water_consumption = heatmap_data(df, 'Water Consumed', 3)
+calories = heatmap_data(df, 'Calories Percent', 6)
+fiveam_streak = heatmap_data(df, '5AM Walk', 3)
+pages_read = heatmap_data(df, 'Pages Read', 3)
+body_fat = single_line_graph(df, 'Body Fat', 12)
+body_fat_goal = single_line_graph(df, 'Body Fat Goal', 12)
+body_weight = single_line_graph(df, 'Body Weight', 12)
+body_weight_goal = single_line_graph(df, 'Body Weight Goal', 12)
+
+out = {}
+
+out["pushup-data"] = push_ups
+out["water-consumption-data"] = water_consumption
+out["calories-data"] = calories
+out["fiveam-data"] = fiveam_streak
+out["pages-read-data"] = pages_read
+
+out["body-weight-data"] = body_weight
+out["body-weight-goal-data"] = body_weight_goal
+
+out["bodyfat-data"] = body_fat
+out["bodyfat-goal-data"] = body_fat_goal
+
+json_string = json.dumps(out)
+
+with open('../../static/chart-data/data.json','w') as outfile:
+    outfile.write(json_string)
