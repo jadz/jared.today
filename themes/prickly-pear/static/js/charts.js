@@ -69,6 +69,9 @@ var waterConsumption = {
     dataLabels: {
         enabled: false
     },
+    noData: {
+        text: "Loading..."
+    },
     series: []
 }
 
@@ -89,18 +92,21 @@ var fiveAMStreak = {
     theme: {
         monochrome: {
             enabled: true,
-            color: "#03A9F4"
+            color: "#0C5374"
         }
     },
     title: {
         text: "5am Streak",
         offsetY: 10,
         style: {
-            color: "#03A9F4"
+            color: "#0C5374"
         }
     },
     dataLabels: {
         enabled: false
+    },
+    noData: {
+        text: "Loading..."
     },
     series: [ ]
 }
@@ -122,18 +128,21 @@ var pagesReadStreak = {
     theme: {
         monochrome: {
             enabled: true,
-            color: "#03A9F4"
+            color: "#A01FF1"
         }
     },
     title: {
         text: "Pages Read",
         offsetY: 10,
         style: {
-            color: "#03A9F4"
+            color: "#A01FF1"
         }
     },
     dataLabels: {
         enabled: false
+    },
+    noData: {
+        text: "Loading..."
     },
     series: []
 }
@@ -186,44 +195,7 @@ var calories = {
                         color: "#CC0100",
                         name: "> 20% Over"
                     }
-                    // {
-                    //     from: 50,
-                    //     to: 25,
-                    //     color: "#178038",
-                    //     name: "really under"
-                    // },
-                    // {
-                    //     from: 24,
-                    //     to: 10,
-                    //     color: "#A8DAB5",
-                    //     name: "under"
-                    // },
-                    // {
-                    //     from: 9,
-                    //     to: 1,
-                    //     color: "#A8DAB5",
-                    //     name: "sufficient"
-                    // },
-                    // {
-                    //     from: -15,
-                    //     to: 0,
-                    //     color: "#CC0100",
-                    //     name: "really over"
-                    // },
-                    // {
-                    //     from: -16,
-                    //     to: -10,
-                    //     color: "#EA9999",
-                    //     name: "over"
-                    // },
-                    // {
-                    //     from: -11,
-                    //     to: -15,
-                    //     color: "#EFEFEF",
-                    //     name: "sufficient"
-                    // },
-
-            ]
+                ]
             }
 
         }
@@ -239,18 +211,21 @@ var calories = {
     theme: {
         monochrome: {
             enabled: true,
-            color: "#03A9F4"
+            color: "#000000"
         }
     },
     title: {
         text: "Calorie Tracker",
         offsetY: 10,
         style: {
-            color: "#03A9F4"
+            color: "#000000"
         }
     },
     dataLabels: {
         enabled: false
+    },
+    noData: {
+        text: "Loading..."
     },
     series: []
 }
@@ -273,29 +248,38 @@ strengthGoals = {
         text: "Strength Goals",
         offsetY: 10,
         style: {
-            color: "#03A9F4"
+            color: '#F44336'
+        }
+    },
+    fill: {
+        colors: ['#F44336']
+    },
+    xaxis: {
+        title: {
+            text: "KG",
+            offsetY: 0
         }
     },
     series: [{
         data: [
             {
                 x: 'Bench',
-                y: 40,
+                y: 60,
                 goals: [
-                    {
-                        name: 'Baseline',
-                        value: 60,
-                        strokeColor: '#775DD0'
-                    },
                     {
                         name: 'Decent',
                         value: 78.75,
-                        strokeColor: '#775DD0'
+                        strokeColor: '#E01F27'
                     },
                     {
                         name: 'Good',
                         value:105, 
-                        strokeColor: '#775DD0'
+                        strokeColor: '#E01F27'
+                    },
+                    {
+                        name: 'Optimal',
+                        value:136.5, 
+                        strokeColor: '#E01F27'
                     },
                 ]
             },
@@ -304,10 +288,20 @@ strengthGoals = {
                 y: 130,
                 goals: [
                     {
-                        name: 'Expected',
-                        value: 160,
-                        strokeColor: '#775DD0'
-                    }
+                        name: 'Decent',
+                        value: 105,
+                        strokeColor: '#E01F27'
+                    },
+                    {
+                        name: 'Good',
+                        value: 136.5, 
+                        strokeColor: '#E01F27'
+                    },
+                    {
+                        name: 'Optimal',
+                        value: 173.25 ,
+                        strokeColor: '#E01F27'
+                    },
                 ]
             },
             {
@@ -315,12 +309,58 @@ strengthGoals = {
                 y: 110,
                 goals: [
                     {
-                        name: 'Expected',
+                        name: 'Decent',
                         value: 130,
-                        strokeColor: '#775DD0'
-                    }
+                        strokeColor: '#E01F27'
+                    },
+                    {
+                        name: 'Good',
+                        value: 126,
+                        strokeColor: '#E01F27'
+                    },
+                    {
+                        name: 'Decent',
+                        value: 157.5,
+                        strokeColor: '#E01F27'
+                    },
                 ]
             },
+        ]
+    }],
+}
+
+bodyStrengthGoals = {
+    chart: {
+        height: 200,
+        type: 'bar',
+        fontFamily: '"JetBrains Mono", monospace',
+        toolbar: {
+            show: false
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: true
+        }
+    },
+    title: {
+        text: "Body Strength Goals",
+        offsetY: 10,
+        style: {
+            color: "#F44336"
+        }
+    },
+    fill: {
+        colors: ['#F44336']
+    },
+    xaxis: {
+        title: {
+            text: "KG",
+            offsetY: 0
+        }
+    },
+    series: [{
+        data: [
             {
                 x: 'Push Ups',
                 y: 10,
@@ -328,17 +368,17 @@ strengthGoals = {
                     {
                         name: 'Decent',
                         value: 10,
-                        strokeColor: '#775DD0'
+                        strokeColor: '#F44336'
                     },
                     {
                         name: 'Good',
                         value: 25,
-                        strokeColor: '#775DD0'
+                        strokeColor: '#F44336'
                     },
                     {
                         name: 'Optimal',
                         value: 35,
-                        strokeColor: '#775DD0'
+                        strokeColor: '#F44336'
                     },
 
                 ]
@@ -350,17 +390,17 @@ strengthGoals = {
                     {
                         name: 'Decent',
                         value: 3,
-                        strokeColor: '#775DD0'
+                        strokeColor: '#F44336'
                     },
                     {
                         name: 'Good',
                         value: 8,
-                        strokeColor: '#775DD0'
+                        strokeColor: '#F44336'
                     },
                     {
                         name: 'Optimal',
                         value: 12,
-                        strokeColor: '#775DD0'
+                        strokeColor: '#F44336'
                     },
 
                 ]
@@ -393,8 +433,17 @@ bodyWeight = {
         dashArray: [0,5],
         width: [3,2]
     },
-    xaxis: {
-        categories: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+    yaxis: {
+        min: 90,
+        labels: {
+            formatter: function (y) {
+                return parseFloat(y).toFixed(2)
+            }
+        },
+        title: {
+            text: "KG",
+            offsetY: 0
+        }
     },
     colors: ['#00E396'],
     fill: {
@@ -404,19 +453,10 @@ bodyWeight = {
           opacityTo: 0.6,
         }
     },
-    series: [
-        {
-            type: 'area',
-            name: 'weight',
-            data: [106,105.5,105,104.8,104.6,104.0,103.8,103.5,104.8,103.2,102.8,102.5,102.0],
-        },
-        {
-            type: 'line',
-            name: 'goal',
-            data: [106,105.8,105.4,104.5,104.6,104.2,103.5,103.2,103.8,102.8,103.0,102.8,102.6],
-            color: 'red',
-        },
-    ]
+    noData: {
+        text: "Loading..."
+    },
+    series: []
 }
 
 bodyFat = {
@@ -445,14 +485,25 @@ bodyFat = {
         width: [3,2]
     },
     xaxis: {
-        categories: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+    },
+    yaxis: {
+        min: 12,
+        labels: {
+            formatter: function (y) {
+                return parseFloat(y).toFixed(2)
+            }
+        },
+        title: {
+            text: "Percentage",
+            offsetY: 0
+        }
     },
     colors: ['#008FFB'],
     fill: {
         type: 'gradient',
         gradient: {
-          opacityFrom: 0.3,
-          opacityTo: 0.6,
+          opacityFrom: 0.5,
+          opacityTo: 0.8,
         }
     },
     noData: {
@@ -468,6 +519,7 @@ var fiveAMStreakChart = new ApexCharts(document.querySelector("#fiveam-streaks")
 var pageStreakChart = new ApexCharts(document.querySelector("#page-streaks"), pagesReadStreak);
 var caloriesChart = new ApexCharts(document.querySelector("#calories"), calories);
 var strengthGoalChart = new ApexCharts(document.querySelector("#strength-goal"), strengthGoals);
+var bodyStrengthGoalChart = new ApexCharts(document.querySelector("#body-strength-goal"), bodyStrengthGoals);
 var bodyWeightChart = new ApexCharts(document.querySelector("#bodyweight-trend"), bodyWeight);
 var bodyFatChart = new ApexCharts(document.querySelector("#bodyfat-trend"), bodyFat);
 
@@ -477,6 +529,7 @@ fiveAMStreakChart.render()
 pageStreakChart.render()
 caloriesChart.render()
 strengthGoalChart.render()
+bodyStrengthGoalChart.render()
 bodyWeightChart.render()
 bodyFatChart.render()
 
@@ -486,15 +539,28 @@ $.getJSON('/chart-data/data.json', function (json) {
     fiveAMStreakChart.updateSeries(json["fiveam-data"]);
     pageStreakChart.updateSeries(json["pages-read-data"]);
     caloriesChart.updateSeries(json["calories-data"]);
+    bodyWeightChart.updateSeries([
+        {
+            name: 'Body Weight',
+            type: 'area',
+            color: '#000000',
+            data: json["body-weight-data"]
+        },
+        {
+            type: 'line',
+            name: 'Body Weight Goal',
+            data: json["body-weight-goal-data"],
+        }
+    ])
     bodyFatChart.updateSeries([
         {
-            name: 'body fat',
+            name: 'Body Fat',
             type: 'area',
             data: json["bodyfat-data"]
         },
         {
             type: 'line',
-            name: 'BF Goal',
+            name: 'Body Fat Goal',
             data: json["bodyfat-goal-data"],
         }
     ])

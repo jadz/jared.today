@@ -75,8 +75,6 @@ account_info = {
     "client_x509_cert_url": GOOGLE_CLIENT_X509
 }
 
-print("Authenticating with google sheets API: ", account_info)
-
 credentials = service_account.Credentials.from_service_account_info(account_info, scopes=SCOPES)
 
 
@@ -118,6 +116,15 @@ def single_line_graph(df, column, weeks):
     df2 = df.query("Date >= @monday_12_weeks_ago and Date <= @now") \
     .groupby(pd.Grouper(freq='W', level='Date'))[column].mean(numeric_only=True)
 
+    reformatted_data = []
+    for index, item in df2.items():
+            points = {}
+            points["x"] = index.strftime("%d-%b")
+            points["y"] = np.nan_to_num(item)
+            reformatted_data.append(points)
+
+    return reformatted_data
+
 def heatmap_data(df, column, months):
     output_data = []
 
@@ -125,18 +132,16 @@ def heatmap_data(df, column, months):
         start_month = (datetime.now().date() - relativedelta(months=n)).replace(day=1)
         end_month = start_month + relativedelta(months=1)
 
-        # data = df.query("Date >= @start_month and Date < @end_month")[column].tolist()
-        data2 = df.query("Date >= @start_month and Date < @end_month")[column]
+        data = df.query("Date >= @start_month and Date < @end_month")[column]
 
         month_data = {}
         month_data["name"] = start_month.strftime("%B")
 
         # pad out the array with 0's if the data starts mid month
         reformatted_data = []
-        ## FIXME -- This is really hacky
-        foo = data2.head(1).index.day.tolist()
-        if (len(foo) > 0):
-            first_day = data2.head(1).index.day.tolist()[0]
+        day_indexes = data.head(1).index.day.tolist()
+        if (len(day_indexes) > 0):
+            first_day = data.head(1).index.day.tolist()[0]
 
             if first_day > 1:
                 for i in range(1, first_day):
@@ -145,9 +150,8 @@ def heatmap_data(df, column, months):
                     points["y"] = 0
                     reformatted_data.append(points)
 
-        for index, item in data2.items():
+        for index, item in data.items():
             points = {}
-            # points["x"] = str(index+1)
             points["x"] = index.strftime("%d")
             points["y"] = np.nan_to_num(item)
             reformatted_data.append(points)
