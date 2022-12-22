@@ -59,7 +59,7 @@ GOOGLE_AUTH_PROVIDER = os.environ.get("GOOGLE_AUTH_PROVIDER")
 GOOGLE_CLIENT_X509 = os.environ.get("GOOGLE_CLIENT_X509")
 
 # credentials = None
-credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+# credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
 account_info = {
     "type": GOOGLE_AUTH_TYPE,
