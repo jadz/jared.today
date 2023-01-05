@@ -10,7 +10,6 @@ theme = 'prickly-pear'
     mainSectionTitle = "Writings"
     dateFormat = "2006-01-02" # default
     showReadTime = true
-    mixpanelApiKey = "6b05d329b3bc356ebfdf2a85893f992d"
 
 [[menu.main]]
 name = "Home"
