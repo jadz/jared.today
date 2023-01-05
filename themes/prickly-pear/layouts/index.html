@@ -78,4 +78,7 @@
         </div>
       </div>
   </section>
+  {{ if .Site.Params.MixpanelApiKey }}
+  <script>mixpanel.track('homepage')</script>
+  {{end}}
 {{ end }}
