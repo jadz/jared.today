@@ -6,8 +6,11 @@ theme = 'prickly-pear'
 [params]
     colortheme = "white"
     description = "This is a sample piece of text for the description"
-    mainSection = "Status"
-    mainSectionTitle = "Status"
+    mainSection = "posts"
+    mainSectionTitle = "Writings"
+    dateFormat = "2006-01-02" # default
+    showReadTime = true
+    mixpanelApiKey = "6b05d329b3bc356ebfdf2a85893f992d"
 
 [[menu.main]]
 name = "Home"
@@ -15,8 +18,8 @@ url = "/"
 weight = 1
 
 [[menu.main]]
-name = "Status"
-url = "/status"
+name = "Writings"
+url = "/posts"
 weight = 2
 
 staticDir = ['static']

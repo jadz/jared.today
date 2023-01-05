@@ -1,29 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
 {{ partial "head.html" . }}
-<body class="max-width mx-auto px3 ltr">
-  <div class="content index py4">
-
-  {{ partial "page_nav.html" . }}
-
-  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<body class="main-body">
+  <div class="main-column">
+  {{ partial "header.html" . }}
+  <article class="post block" itemscope itemtype="http://schema.org/BlogPosting">
     <header>
-      <h1 class="posttitle" itemprop="name headline">
+      <h1 class="posttitle heading-h1" itemprop="name headline">
         {{ .Title }}
       </h1>
-      <div class="meta">
-        {{ if (or (isset .Site "author") (isset .Site "title"))}}
-        <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <span itemprop="name">
-            {{ if isset .Site "author" }}
-              {{ .Site.Author }}
-            {{ else if isset .Site "title" }}
-              {{ .Site.Title }}
-            {{ end }}
-          </span>
-        </span>
-        {{ end }}
-        <div class="postdate">
+      <div class="meta text-sm text-sub-heading-grey">
+        <div class="inline text-sub-heading-grey">
           {{ $dataFormat := .Site.Params.dateFormat | default "2006-01-02" }}
           <time datetime="{{ .Date }}" itemprop="datePublished">{{ .Date.Format $dataFormat }}</time>
           {{ if (and .Site.Params.show_updated (ne .Lastmod .Date)) }}
@@ -32,14 +19,14 @@
         </div>
         {{ $showReadTime := .Site.Params.showReadTime | default false }}
         {{if $showReadTime}}
-        <div class="article-read-time">
+        <div class="article-read-time inline before:content-['|'] text-sub-heading-grey">
           <i class="far fa-clock"></i>
           {{ $readTime := math.Round (div (countwords .Content) 220.0) }}
           {{ $readTime }} minute read
         </div>
         {{ end }}
         {{ if gt .Params.categories 0 }}
-        <div class="article-category">
+        <div class="article-category inline before:content-['|']">
             <i class="fas fa-archive"></i>
             {{ range $index, $value := .Params.categories }}
             {{ if gt $index 0 }} {{ print ", " }} {{ end }}
@@ -48,16 +35,15 @@
         </div>
         {{ end }}
         {{ if gt .Params.tags 0 }}
-        <div class="article-tag">
+        <div class="article-tag inline before:content-['|'] text-sub-heading-grey">
             <i class="fas fa-tag"></i>
             {{ range $index, $value := .Params.tags }}
             {{ if gt $index 0 }} {{ print ", " }} {{ end }}
-            <a class="tag-link" href="{{ "/tags/" | relLangURL }}{{ $value | urlize }}" rel="tag">{{ $value }}</a>
+            <a class="tag-link before:content-['#'] before:bg-tag-underline before:bg-bottom before:bg-[length:100%_6px] before:bg-repeat-x" href="{{ "/tags/" | relLangURL }}{{ $value | urlize }}" rel="tag">{{ $value }}</a>
             {{ end }}
         </div>
         {{ end }}
       </div>
-    </header>
 
   {{ with .Resources.ByType "image" }}
     <div class="article-gallery">
@@ -73,18 +59,10 @@
       {{ .TableOfContents }}
     </div>
     {{ end }}
-    <div class="content" itemprop="articleBody">
+    <div class="content flex relative flex-col min-h-[100%] break-words" itemprop="articleBody">
       {{ .Content}}
     </div>
   </article>
-
-  {{ partial "comments.html" . }}
-
-  {{ partial "page_nav_mobile.html" . }}
-
-  {{ partial "footer.html" . }}
-
-  </div>
 </body>
 
 <link rel="stylesheet" href={{ "/lib/font-awesome/css/all.min.css" | relURL }}>

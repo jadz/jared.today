@@ -1,30 +1,78 @@
-var pushupStreaks = {
-    plotOptions: {
+const stepCountHeaderColor = "#0A9396";
+const stepCountGraphColor = "#0A9396";
+const sleepHourGraphHeaderColor = "#24AB99"
+const sleepHourGraphColor = "#24AB99";
+const pushUpHeaderColor = "#51C293";
+const pushUpGraphColor =  "#51C293";
+const fiveAmHeaderColor ="#83D787" ;
+const fiveAmGraphColor = "#83D787";
+const waterConsumptionHeaderColor =  "#C5ED8E";
+const waterConsumptionGraphColor = "#BBEA7A";
+const pageStreakHeaderColor ="#FF8847";
+const pageStreakGraphColor = "#FF8847";
+
+var baseHeatmapChart = {
+    type: 'heatmap',
+    height: 160,
+    width: "100%",
+    fontFamily: '"JetBrains Mono", monospace',
+    toolbar: {
+        show: false
+    }
+};
+
+var baseHeatmapPlotOptions = {
         heatmap: {
             distributed: false
         }
-    },
-    chart: {
-        type: 'heatmap',
-        height: 160,
-        width: "100%",
-        fontFamily: '"JetBrains Mono", monospace',
-        toolbar: {
-            show: false
-        }
-    },
+    }
+
+var pushupStreaks = {
+    plotOptions: baseHeatmapPlotOptions,
+    chart: baseHeatmapChart,
     theme: {
         palette: 'palette3',
         monochrome: {
             enabled: true,
-            color: "#4CAF50"
+            shadeIntensity: 0,
+            color: pushUpGraphColor,
         }
     },
     title: {
         text: "Push Up Streak",
         offsetY: 10,
         style: {
-            color: "#4CAF50"
+            color: pushUpHeaderColor
+        }
+    },
+    dataLabels: {
+        enabled: false
+    },
+    noData: {
+        text: "Loading..."
+    },
+    legend: {
+        fontSize: "8px"
+    },
+    series: []
+}
+
+var stepCount = {
+    plotOptions: baseHeatmapPlotOptions,
+    chart: baseHeatmapChart,
+    theme: {
+        palette: 'palette3',
+        monochrome: {
+            enabled: true,
+            shadeIntensity: 0,
+            color: stepCountGraphColor,
+        }
+    },
+    title: {
+        text: "Step Count",
+        offsetY: 10,
+        style: {
+            color: stepCountHeaderColor
         }
     },
     dataLabels: {
@@ -40,30 +88,20 @@ var pushupStreaks = {
 }
 
 var waterConsumption = {
-    plotOptions: {
-        heatmap: {
-            distributed: false
-        }
-    },
-    chart: {
-        type: 'heatmap',
-        height: 160,
-        fontFamily: '"JetBrains Mono", monospace',
-        toolbar: {
-            show: false
-        }
-    },
+    plotOptions: baseHeatmapPlotOptions,
+    chart: baseHeatmapChart,
     theme: {
         monochrome: {
             enabled: true,
-            color: "#03A9F4"
+            shadeIntensity: 0,
+            color: waterConsumptionGraphColor
         }
     },
     title: {
         text: "Water Consumption",
         offsetY: 10,
         style: {
-            color: "#03A9F4"
+            color: waterConsumptionHeaderColor
         }
     },
     dataLabels: {
@@ -76,30 +114,20 @@ var waterConsumption = {
 }
 
 var fiveAMStreak = {
-    plotOptions: {
-        heatmap: {
-            distributed: false
-        }
-    },
-    chart: {
-        type: 'heatmap',
-        height: 160,
-        fontFamily: '"JetBrains Mono", monospace',
-        toolbar: {
-            show: false
-        }
-    },
+    plotOptions: baseHeatmapPlotOptions,
+    chart: baseHeatmapChart,
     theme: {
         monochrome: {
             enabled: true,
-            color: "#0C5374"
+            shadeIntensity: 0,
+            color: fiveAmGraphColor
         }
     },
     title: {
-        text: "5am Streak",
+        text: "5am Walking",
         offsetY: 10,
         style: {
-            color: "#0C5374"
+            color: fiveAmHeaderColor
         }
     },
     dataLabels: {
@@ -112,30 +140,46 @@ var fiveAMStreak = {
 }
 
 var pagesReadStreak = {
-    plotOptions: {
-        heatmap: {
-            distributed: false
-        }
-    },
-    chart: {
-        type: 'heatmap',
-        height: 160,
-        fontFamily: '"JetBrains Mono", monospace',
-        toolbar: {
-            show: false
-        }
-    },
+    plotOptions: baseHeatmapPlotOptions,
+    chart: baseHeatmapChart,
     theme: {
         monochrome: {
             enabled: true,
-            color: "#A01FF1"
+            shadeIntensity: 0,
+            color: pageStreakGraphColor
         }
     },
     title: {
         text: "Pages Read",
         offsetY: 10,
         style: {
-            color: "#A01FF1"
+            color: pageStreakHeaderColor
+        }
+    },
+    dataLabels: {
+        enabled: false
+    },
+    noData: {
+        text: "Loading..."
+    },
+    series: []
+}
+
+var sleepHours = {
+    plotOptions: baseHeatmapPlotOptions,
+    chart: baseHeatmapChart,
+    theme: {
+        monochrome: {
+            enabled: true,
+            shadeIntensity: 0,
+            color: sleepHourGraphColor,
+        }
+    },
+    title: {
+        text: "Sleep Hours",
+        offsetY: 10,
+        style: {
+            color: sleepHourGraphHeaderColor
         }
     },
     dataLabels: {
@@ -150,54 +194,71 @@ var pagesReadStreak = {
 var calories = {
     plotOptions: {
         heatmap: {
-            distributed: false,
+            distributed: true,
+            monochrome: true,
             colorScale: {
                 ranges: [
                     {
                         from: 0,
                         to: 0,
-                        color: "#FFF",
-                        name: "0-10% UNDER"
+                        color: "#EBEBEB",
+                        name: "No Data"
                     },
                     {
-                        from: 0,
+                        from: 1,
                         to: 10,
-                        color: "#E6F4EA",
-                        name: "0-10% UNDER"
-                    },
-                    {
-                        from: 10,
-                        to: 20,
-                        color: "#A8DAB5",
-                        name: "10-20% UNDER"
-                    },
-                    {
-                        from: 20,
-                        to: 100,
-                        color: "#178038",
-                        name: ">20% UNDER"
-                    },
-                    {
-                        from: -10,
-                        to: 0,
                         color: "#F5CBCC",
                         name: "0-10% OVER"
                     },
                     {
-                        from: -20,
-                        to: -10,
+                        from: 10,
+                        to: 19,
                         color: "#EA9999",
-                        name: "10%-20% OVER"
+                        name: "10-19% OVER"
+                    },
+                    {
+                        from: 20,
+                        to: 100,
+                        color: "#CC0100",
+                        name: ">=20% OVER"
+                    },
+                    {
+                        from: -10,
+                        to: -0.9999,
+                        color: "#E6F4EA",
+                        name: "0-10% UNDER"
+                    },
+                    {
+                        from: -19,
+                        to: -10,
+                        color: "#A8DAB5",
+                        name: "10%-19% UNDER"
                     },
                     {
                         from: -100,
                         to: -20,
-                        color: "#CC0100",
-                        name: "> 20% Over"
+                        color: "#178038",
+                        name: ">= 20% UNDER"
                     }
                 ]
             }
+        }
+    },
+    yaxis: {
+        min: 100,
+        labels: {
+            formatter: function (y) {
+                if (typeof y == "number") {
+                    plusOrMinus = ""
+                    return plusOrMinus + " " + parseFloat(y).toFixed(2) + "%"
+                }
 
+                return y
+            }
+        },
+        title: {
+            text: "KG",
+            offsetY: 0
         }
     },
     chart: {
@@ -248,11 +309,11 @@ strengthGoals = {
         text: "Strength Goals",
         offsetY: 10,
         style: {
-            color: '#F44336'
+            color: '#12437C'
         }
     },
     fill: {
-        colors: ['#F44336']
+        colors: ['#12437C']
     },
     xaxis: {
         title: {
@@ -269,17 +330,17 @@ strengthGoals = {
                     {
                         name: 'Decent',
                         value: 78.75,
-                        strokeColor: '#E01F27'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Good',
                         value:105, 
-                        strokeColor: '#E01F27'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Optimal',
                         value:136.5, 
-                        strokeColor: '#E01F27'
+                        strokeColor: '#92D2F9'
                     },
                 ]
             },
@@ -290,17 +351,17 @@ strengthGoals = {
                     {
                         name: 'Decent',
                         value: 105,
-                        strokeColor: '#E01F27'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Good',
                         value: 136.5, 
-                        strokeColor: '#E01F27'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Optimal',
                         value: 173.25 ,
-                        strokeColor: '#E01F27'
+                        strokeColor: '#92D2F9'
                     },
                 ]
             },
@@ -311,17 +372,17 @@ strengthGoals = {
                     {
                         name: 'Decent',
                         value: 130,
-                        strokeColor: '#E01F27'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Good',
                         value: 126,
-                        strokeColor: '#E01F27'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Decent',
                         value: 157.5,
-                        strokeColor: '#E01F27'
+                        strokeColor: '#92D2F9'
                     },
                 ]
             },
@@ -347,15 +408,15 @@ bodyStrengthGoals = {
         text: "Body Strength Goals",
         offsetY: 10,
         style: {
-            color: "#F44336"
+            colors: ['#12437C']
         }
     },
     fill: {
-        colors: ['#F44336']
+        colors: ['#12437C']
     },
     xaxis: {
         title: {
-            text: "KG",
+            text: "Number",
             offsetY: 0
         }
     },
@@ -368,17 +429,17 @@ bodyStrengthGoals = {
                     {
                         name: 'Decent',
                         value: 10,
-                        strokeColor: '#F44336'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Good',
                         value: 25,
-                        strokeColor: '#F44336'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Optimal',
                         value: 35,
-                        strokeColor: '#F44336'
+                        strokeColor: '#92D2F9'
                     },
 
                 ]
@@ -390,17 +451,17 @@ bodyStrengthGoals = {
                     {
                         name: 'Decent',
                         value: 3,
-                        strokeColor: '#F44336'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Good',
                         value: 8,
-                        strokeColor: '#F44336'
+                        strokeColor: '#92D2F9'
                     },
                     {
                         name: 'Optimal',
                         value: 12,
-                        strokeColor: '#F44336'
+                        strokeColor: '#92D2F9'
                     },
 
                 ]
@@ -434,7 +495,7 @@ bodyWeight = {
         width: [3,2]
     },
     yaxis: {
-        min: 90,
+        min: 100,
         labels: {
             formatter: function (y) {
                 return parseFloat(y).toFixed(2)
@@ -445,7 +506,7 @@ bodyWeight = {
             offsetY: 0
         }
     },
-    colors: ['#00E396'],
+    colors: ['#08C095'],
     fill: {
         type: 'gradient',
         gradient: {
@@ -487,7 +548,7 @@ bodyFat = {
     xaxis: {
     },
     yaxis: {
-        min: 12,
+        min: 25,
         labels: {
             formatter: function (y) {
                 return parseFloat(y).toFixed(2)
@@ -498,12 +559,12 @@ bodyFat = {
             offsetY: 0
         }
     },
-    colors: ['#008FFB'],
+    colors: ['#FF906C'],
     fill: {
         type: 'gradient',
         gradient: {
-          opacityFrom: 0.5,
-          opacityTo: 0.8,
+          opacityFrom: 0.3,
+          opacityTo: 0.6,
         }
     },
     noData: {
@@ -517,6 +578,8 @@ var pushupStreaksChart = new ApexCharts(document.querySelector("#pushup-streaks"
 var waterConsumptionChart = new ApexCharts(document.querySelector("#water-consumption"), waterConsumption);
 var fiveAMStreakChart = new ApexCharts(document.querySelector("#fiveam-streaks"), fiveAMStreak);
 var pageStreakChart = new ApexCharts(document.querySelector("#page-streaks"), pagesReadStreak);
+var sleepChart = new ApexCharts(document.querySelector("#sleep-hours"), sleepHours);
+var stepCountChart = new ApexCharts(document.querySelector("#step-count"), stepCount);
 var caloriesChart = new ApexCharts(document.querySelector("#calories"), calories);
 var strengthGoalChart = new ApexCharts(document.querySelector("#strength-goal"), strengthGoals);
 var bodyStrengthGoalChart = new ApexCharts(document.querySelector("#body-strength-goal"), bodyStrengthGoals);
@@ -527,6 +590,8 @@ pushupStreaksChart.render()
 waterConsumptionChart.render()
 fiveAMStreakChart.render()
 pageStreakChart.render()
+sleepChart.render()
+stepCountChart.render()
 caloriesChart.render()
 strengthGoalChart.render()
 bodyStrengthGoalChart.render()
@@ -538,29 +603,30 @@ $.getJSON('/chart-data/data.json', function (json) {
     waterConsumptionChart.updateSeries(json["water-consumption-data"]);
     fiveAMStreakChart.updateSeries(json["fiveam-data"]);
     pageStreakChart.updateSeries(json["pages-read-data"]);
+    sleepChart.updateSeries(json["sleep-data"]);
+    stepCountChart.updateSeries(json["step-count-data"]);
     caloriesChart.updateSeries(json["calories-data"]);
     bodyWeightChart.updateSeries([
         {
-            name: 'Body Weight',
+            name: 'body weight',
             type: 'area',
-            color: '#000000',
             data: json["body-weight-data"]
         },
         {
             type: 'line',
-            name: 'Body Weight Goal',
+            name: 'body weight goal',
             data: json["body-weight-goal-data"],
         }
-    ])
+    ]);
     bodyFatChart.updateSeries([
         {
-            name: 'Body Fat',
+            name: 'body fat',
             type: 'area',
             data: json["bodyfat-data"]
         },
         {
             type: 'line',
-            name: 'Body Fat Goal',
+            name: 'body fat goal',
             data: json["bodyfat-goal-data"],
         }
     ])

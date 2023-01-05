@@ -1,6 +1,7 @@
 {{ define "main"}}
+    {{ $dataFormat := .Site.Params.dateFormat | default "2006-01-02" }}
 <div id="archive">
-  <ul class="post-list">
+  <ul class="p-0">
 
   {{ $pages := .Paginator.Pages }}
   {{ if .Site.Params.showAllPostsArchive }}
@@ -13,13 +14,10 @@
     {{ $.Scratch.Set "year" $pageYear }}
     <h2>{{ $pageYear }}</h2>
     {{ end }}
-    <li class="post-item">
-      <div class="meta">
-        <time datetime="{{ time .Date }}" itemprop="datePublished">{{ .Date.Format (.Site.Params.dateFormat | default "2006-01-02") }}</time>
-      </div>
-      <span>    
-        <a class="" href="{{ .Permalink }}">{{ if .Title }} {{ .Title }} {{ else }} Untitled {{ end }}</a>
-      </span>
+    <!-- <li class="post-item"> -->
+    <li class="ml-[1rem] mb-[1rem] list-none flex mb-[5px]">
+      <div class="block mr-4 min-w-[100px] text-sm text-left"><time datetime="{{ time .Date }}" itemprop="datePublished">{{ .Date.Format $dataFormat }}</time></div>
+      <span class="text-sm"><a class="underline hover:text-red-700" href="{{ .Permalink }}">{{ if .Title }} {{- .Title -}} {{ else }} {{- print "Untitled" -}}{{ end }}</a></span>
     </li>
     {{ end }}
   </ul>

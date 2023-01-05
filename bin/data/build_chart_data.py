@@ -33,7 +33,7 @@ def make_data_frame_from_list(list):
     # Set the index of the data frame to be a date
     df.set_index(['Date'], inplace=True)
 
-    df['Calories Percent'] = df.apply(lambda x: calculate_calorie_percent(x['Calories Burned'], x['Calories Consumed']), axis=1)
+    df['Calories Percent'] = df.apply(lambda x: calculate_calorie_percent(x['Calories Consumed'], x['Calories Burned']), axis=1)
 
     return df
 
@@ -79,7 +79,8 @@ credentials = service_account.Credentials.from_service_account_info(account_info
 
 
 SAMPLE_SPREADSHEET_ID = '1ohNM7O8Ecg1EtI3WLv3MbyuKLP7gm7WQFufcqylxeUQ'
-SAMPLE_RANGE_NAME = 'Daily Log Test!A1:N498'
+# SAMPLE_RANGE_NAME = 'Daily Log Test!A1:N498'
+SAMPLE_RANGE_NAME = 'Daily Log!A1:AA600'
 
 service = build('sheets', 'v4', credentials=credentials)
 
@@ -114,6 +115,25 @@ def single_line_graph(df, column, weeks):
     monday_12_weeks_ago = monday_this_week - timedelta(weeks=weeks)
 
     df2 = df.query("Date >= @monday_12_weeks_ago and Date <= @now") \
+    .groupby(pd.Grouper(freq='W', level='Date'))[column].mean(numeric_only=True)
+
+    reformatted_data = []
+    for index, item in df2.items():
+            points = {}
+            points["x"] = index.strftime("%d-%b")
+            points["y"] = np.nan_to_num(item)
+            reformatted_data.append(points)
+
+    return reformatted_data
+
+def single_line_graph_from_date(df, column, weeks, from_date):
+
+    monday_from_date = from_date - timedelta(days = from_date.weekday())
+    sunday_from_date = monday_from_date + timedelta(days=6)
+
+    monday_in_n_weeks = monday_from_date + timedelta(weeks=weeks)
+
+    df2 = df.query("Date < @monday_in_n_weeks and Date >= @monday_from_date") \
     .groupby(pd.Grouper(freq='W', level='Date'))[column].mean(numeric_only=True)
 
     reformatted_data = []
@@ -167,10 +187,12 @@ water_consumption = heatmap_data(df, 'Water Consumed', 3)
 calories = heatmap_data(df, 'Calories Percent', 6)
 fiveam_streak = heatmap_data(df, '5AM Walk', 3)
 pages_read = heatmap_data(df, 'Pages Read', 3)
-body_fat = single_line_graph(df, 'Body Fat', 12)
-body_fat_goal = single_line_graph(df, 'Body Fat Goal', 12)
-body_weight = single_line_graph(df, 'Body Weight', 12)
-body_weight_goal = single_line_graph(df, 'Body Weight Goal', 12)
+sleep_hours = heatmap_data(df, 'Sleep Hours', 3)
+step_count = heatmap_data(df, 'Step Count', 3)
+body_fat = single_line_graph_from_date(df, 'Body Fat', 12, datetime.strptime("01012023", "%d%m%Y"))
+body_fat_goal = single_line_graph_from_date(df, 'Body Fat Goal', 12, datetime.strptime("01012023", "%d%m%Y"))
+body_weight = single_line_graph_from_date(df, 'Body Weight', 12, datetime.strptime("01012023", "%d%m%Y"))
+body_weight_goal = single_line_graph_from_date(df, 'Body Weight Goal', 12, datetime.strptime("01012023", "%d%m%Y"))
 
 out = {}
 
@@ -179,6 +201,8 @@ out["water-consumption-data"] = water_consumption
 out["calories-data"] = calories
 out["fiveam-data"] = fiveam_streak
 out["pages-read-data"] = pages_read
+out["sleep-data"] = sleep_hours
+out["step-count-data"] = step_count
 
 out["body-weight-data"] = body_weight
 out["body-weight-goal-data"] = body_weight_goal

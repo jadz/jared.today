@@ -1,4 +1,46 @@
 {{ define "main" }}
+
+  <!-- <span class="heading-h1">Writing</span> -->
+  <!-- <span class="block mt-[3rem] mb-[1rem] text-gorgeous-green font-bold text-2xl">Writing</span> -->
+  <span class="heading-h1">Writing</span>
+  <section id="writing" class="block">
+    <span class="h2 text-[#383838] block font-bold">Most recent</span>
+    {{ $showAllPostsOnHomePage := false }}
+    {{ if (isset .Site.Params "showallpostsonhomepage") }}
+      {{ $showAllPostsOnHomePage = .Site.Params.ShowAllPostsOnHomePage }}
+    {{ end }}
+    {{ $dataFormat := .Site.Params.dateFormat | default "2006-01-02" }}
+    {{ $mainPosts := (sort ( where site.RegularPages "Type" "in" site.Params.mainSections ) "Date" "desc") }}
+    {{ if $showAllPostsOnHomePage }}
+    <ul class="post-list">
+      {{ range (.Paginate $mainPosts).Pages }}
+        <li class="post-item">
+          <div class="meta mt-0 mb-[1rem]"><time datetime="{{ time .Date }}" itemprop="datePublished">{{ .Date.Format $dataFormat }}</time></div>
+          <span><a href="{{ .Permalink }}">{{ if .Title }} {{- .Title -}} {{ else }} {{- print "Untitled" -}}{{ end }}</a></span>
+        </li>
+      {{ end }}
+    </ul>
+
+    {{ partial "pagination.html" . }}
+
+    {{ else }}
+    <ul class="p-0">
+      {{ .Scratch.Set "count" 5 }}
+      {{ if isset .Site.Params "postsonhomepage" }}
+        {{ .Scratch.Set "count" .Site.Params.postsOnHomePage }}
+      {{ end }}
+      {{ range (first (.Scratch.Get "count") $mainPosts) }}
+        <li class="mb-[1rem] ml-0 list-none flex mb-[5px]">
+          <div class="block mr-16 min-w-[100px] text-sm text-left"><time datetime="{{ time .Date }}" itemprop="datePublished">{{ .Date.Format $dataFormat }}</time></div>
+          <span class="text-sm"><a class="underline hover:text-red-700" href="{{ .Permalink }}">{{ if .Title }} {{- .Title -}} {{ else }} {{- print "Untitled" -}}{{ end }}</a></span>
+        </li>
+      {{ end }}
+    </ul>
+    {{ end }}
+  </section>
+
+  <!-- STATS -->
+  <span class="heading-h1">Current Stats</span>
   <section id="stats" class="block">
       <div class="grid grid-cols-12 gap-4 max-w-9xl mx-auto border-solid border-blue-500">
         <div class="card-full">
@@ -11,13 +53,19 @@
           <div id="bodyfat-trend"></div>
         </div>
         <div class="card-half">
+          <div id="step-count"></div>
+        </div>
+        <div class="card-half">
+          <div id="sleep-hours"></div>
+        </div>
+        <div class="card-half">
           <div id="pushup-streaks"></div>
         </div>
         <div class="card-half">
-          <div id="water-consumption"></div>
+          <div id="fiveam-streaks"></div>
         </div>
         <div class="card-half">
-          <div id="fiveam-streaks"></div>
+          <div id="water-consumption"></div>
         </div>
         <div class="card-half">
           <div id="page-streaks"></div>
