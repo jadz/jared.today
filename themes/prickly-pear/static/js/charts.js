@@ -424,7 +424,7 @@ bodyStrengthGoals = {
         data: [
             {
                 x: 'Push Ups',
-                y: 10,
+                y: 20,
                 goals: [
                     {
                         name: 'Decent',
