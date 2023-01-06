@@ -256,10 +256,6 @@ var calories = {
                 return y
             }
         },
-        title: {
-            text: "KG",
-            offsetY: 0
-        }
     },
     chart: {
         type: 'heatmap',
