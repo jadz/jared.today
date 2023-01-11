@@ -5,7 +5,7 @@ theme = 'prickly-pear'
 
 [params]
     colortheme = "white"
-    aboutDescription = "<p>I'm the Co-Host of <a href='https://www.brenandjared.show' class='underline'>The Bren and Show</a>, and I'm on a journey to transform many aspects of my life. </p><br/><p>I want to share my transformation in hope that I can inspire you to make your own positive changes.</p><br/><p><a href='/posts/2023-01-04-new-year/' class='underline'>Read More...</a></p>"
+    aboutDescription = "<p>I'm the Co-Host of <a href='https://www.brenandjared.show' class='underline'>The Bren and Show</a>, and I'm on a journey to transform many aspects of my life. </p><br/><p>I want to open-source (share) my transformation in hope that I can inspire you to make your own positive changes.</p><br/><p><a href='/posts/2023-01-04-new-year/' class='underline'>Read More...</a></p>"
     description = "Meet Jared, a podcaster and technologist who has open-sourced his ongoing life transformation."
     mainSection = "posts"
     mainSectionTitle = "Writings"
