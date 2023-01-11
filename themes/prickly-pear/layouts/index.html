@@ -4,7 +4,7 @@
 <span class="heading-h1">About</span>
 <section id="about" class="block">
   {{ if isset .Site.Params "description" }}
-    {{ .Site.Params.description | safeHTML }}
+    {{ .Site.Params.aboutdescription | safeHTML }}
   {{ end }}
   <br/>
 {{ if isset .Site.Params "social" }}
