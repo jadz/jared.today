@@ -5,11 +5,12 @@ theme = 'prickly-pear'
 
 [params]
     colortheme = "white"
-    description = "This is a sample piece of text for the description"
+    description = "<p>I'm the Co-Host of <a href='https://www.brenandjared.show' class='underline'>The Bren and Show</a>, and I'm on a journey to transform many aspects of my life. </p><br/><p>I want to share my transformation in hope that I can inspire you to make your own positive changes.</p><br/><p><a href='/posts/2023-01-04-new-year/' class='underline'>Read More...</a></p>"
     mainSection = "posts"
     mainSectionTitle = "Writings"
     dateFormat = "2006-01-02" # default
     showReadTime = true
+    rss = true
 
 [[menu.main]]
 name = "Home"
@@ -21,4 +22,25 @@ name = "Writings"
 url = "/posts"
 weight = 2
 
+[[menu.main]]
+name = "The Bren and Jared Show"
+url = "https://www.brenandjared.show/"
+weight = 3
+
 staticDir = ['static']
+
+[[params.social]]
+    name = "twitter"
+    link = "https://twitter.com/jadzor"
+
+[[params.social]]
+    name = "github"
+    link = "https://github.com/jadz"
+
+[[params.social]]
+    name = "linkedin-in"
+    link = "https://www.linkedin.com/in/jaredmooring/"
+
+[[params.social]]
+    name = "podcast"
+    link = "https://podcasts.apple.com/gb/podcast/the-bren-and-jared-show/id1636646253"
