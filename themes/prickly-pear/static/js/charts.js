@@ -18,7 +18,7 @@ const screenMed   = 768;
 const screenLarge = 1024;
 
 function showAxisForScreen() {
-    return Math.max(document.documentElement.clientWidth || 0, window.innerWidth) > screenSmall;
+    return Math.max(document.documentElement.clientWidth || 0, window.innerWidth) > screenMed;
 }
 
 var baseHeatmapChart = {
@@ -243,7 +243,16 @@ var sleepHours = {
     noData: {
         text: "Loading..."
     },
-    series: []
+    series: [],
+    xaxis: {
+        labels: {
+            show: showAxisForScreen()
+        },
+        axisTicks: {
+            show: showAxisForScreen()
+        }
+
+    }
 }
 
 var calories = {
