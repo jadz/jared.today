@@ -11,6 +11,16 @@ const waterConsumptionGraphColor = "#BBEA7A";
 const pageStreakHeaderColor ="#FF8847";
 const pageStreakGraphColor = "#FF8847";
 
+
+// Source: https://tailwindcss.com/docs/responsive-design
+const screenSmall = 640;
+const screenMed   = 768;
+const screenLarge = 1024;
+
+function showAxisForScreen() {
+    return Math.max(document.documentElement.clientWidth || 0, window.innerWidth) > screenSmall;
+}
+
 var baseHeatmapChart = {
     type: 'heatmap',
     height: 160,
@@ -18,7 +28,7 @@ var baseHeatmapChart = {
     fontFamily: '"JetBrains Mono", monospace',
     toolbar: {
         show: false
-    }
+    },
 };
 
 var baseHeatmapPlotOptions = {
@@ -54,7 +64,16 @@ var pushupStreaks = {
     legend: {
         fontSize: "8px"
     },
-    series: []
+    series: [],
+    xaxis: {
+        labels: {
+            show: showAxisForScreen()
+        },
+        axisTicks: {
+            show: showAxisForScreen()
+        }
+
+    }
 }
 
 var stepCount = {
@@ -84,7 +103,16 @@ var stepCount = {
     legend: {
         fontSize: "8px"
     },
-    series: []
+    series: [],
+    xaxis: {
+        labels: {
+            show: showAxisForScreen()
+        },
+        axisTicks: {
+            show: showAxisForScreen()
+        }
+
+    }
 }
 
 var waterConsumption = {
@@ -110,7 +138,16 @@ var waterConsumption = {
     noData: {
         text: "Loading..."
     },
-    series: []
+    series: [],
+    xaxis: {
+        labels: {
+            show: showAxisForScreen()
+        },
+        axisTicks: {
+            show: showAxisForScreen()
+        }
+
+    }
 }
 
 var fiveAMStreak = {
@@ -136,7 +173,16 @@ var fiveAMStreak = {
     noData: {
         text: "Loading..."
     },
-    series: [ ]
+    series: [ ],
+    xaxis: {
+        labels: {
+            show: showAxisForScreen()
+        },
+        axisTicks: {
+            show: showAxisForScreen()
+        }
+
+    }
 }
 
 var pagesReadStreak = {
@@ -162,7 +208,16 @@ var pagesReadStreak = {
     noData: {
         text: "Loading..."
     },
-    series: []
+    series: [],
+    xaxis: {
+        labels: {
+            show: showAxisForScreen()
+        },
+        axisTicks: {
+            show: showAxisForScreen()
+        }
+
+    }
 }
 
 var sleepHours = {
@@ -256,6 +311,15 @@ var calories = {
                 return y
             }
         },
+    },
+    xaxis: {
+        labels: {
+            show: showAxisForScreen()
+        },
+        axisTicks: {
+            show: showAxisForScreen()
+        }
+
     },
     chart: {
         type: 'heatmap',
