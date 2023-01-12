@@ -86,16 +86,23 @@ ol
 dl {
   line-height: $line-height;
 }
-ul ul,
-ol ul,
-ul ol,
-ol ol {
-  margin-top: 0;
-  margin-bottom: 0;
+
+article {
+  ul, ol {
+    list-style: revert;
+    padding: revert;
+    margin: revert;
+
+  }
+  ul ul, ol ul, ul ol, ol ol {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  ol {
+    list-style: decimal;
+  }
 }
-ol {
-  list-style: decimal;
-}
+
 dt {
   font-weight: bold;
 }
