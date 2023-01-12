@@ -18,7 +18,7 @@ const screenMed   = 768;
 const screenLarge = 1024;
 
 function showAxisForScreen() {
-    return Math.max(document.documentElement.clientWidth || 0, window.innerWidth) > screenMed;
+    return Math.max(document.documentElement.clientWidth || 0, window.innerWidth) > screenLarge;
 }
 
 var baseHeatmapChart = {
