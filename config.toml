@@ -30,6 +30,7 @@ weight = 3
 
 staticDir = ['static']
 
+
 [[params.social]]
     name = "twitter"
     link = "https://twitter.com/jadzor"
@@ -45,3 +46,6 @@ staticDir = ['static']
 [[params.social]]
     name = "podcast"
     link = "https://podcasts.apple.com/gb/podcast/the-bren-and-jared-show/id1636646253"
+
+[markup.goldmark.extensions]
+    linkify = true

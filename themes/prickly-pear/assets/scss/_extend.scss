@@ -88,6 +88,10 @@ dl {
 }
 
 article {
+  a {
+    text-decoration: underline;
+  }
+
   ul, ol {
     list-style: revert;
     padding: revert;
