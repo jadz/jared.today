@@ -642,6 +642,146 @@ bodyFat = {
     series: []
 }
 
+var trainingPlan = {
+    plotOptions: {
+        heatmap: {
+            distributed: true,
+            radius: 0,
+            monochrome: true,
+            colorScale: {
+                ranges: [
+                    {
+                        from: 0,
+                        to: 1,
+                        color: "#DF6060",
+                        name: "Anabolic"
+                    },
+                    {
+                        from: 2,
+                        to: 3,
+                        color: "#FBBC07",
+                        name: "Performance"
+                    },
+                    {
+                        from: 3,
+                        to: 4,
+                        color: "#83D787",
+                        name: "Aesthetic"
+                    },
+                ]
+            }
+        }
+    },
+    xaxis: {
+        labels: {
+            show: showAxisForScreen()
+        },
+        axisTicks: {
+            show: showAxisForScreen()
+        },
+        type: 'category',
+
+    },
+    tooltip: {
+        enabled: false
+    },
+    chart: {
+        type: 'heatmap',
+        height: 260,
+        fontFamily: '"JetBrains Mono", monospace',
+        toolbar: {
+            show: false
+        }
+    },
+    title: {
+        text: "Training Plan",
+        offsetY: 10,
+        style: {
+            color: "#000000"
+        }
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    noData: {
+        text: "Loading..."
+    },
+    series: []
+}
+
+var nutritionPlan = {
+    plotOptions: {
+        heatmap: {
+            distributed: true,
+            radius: 0,
+            monochrome: true,
+            colorScale: {
+                ranges: [
+                    {
+                        from: 0,
+                        to: 1,
+                        color: "#DF6060",
+                        name: "Bulk"
+                    },
+                    {
+                        from: 2,
+                        to: 3,
+                        color: "#FBBC07",
+                        name: "Maintain"
+                    },
+                    {
+                        from: 3,
+                        to: 4,
+                        color: "#83D787",
+                        name: "Cut"
+                    },
+                ]
+            }
+        }
+    },
+    tooltip: {
+        enabled: false
+    },
+    xaxis: {
+        labels: {
+            show: showAxisForScreen()
+        },
+        axisTicks: {
+            show: showAxisForScreen()
+        },
+        tooltip: {
+            enabled: false
+        }
+
+    },
+    yaxis: {
+        tooltip: {
+            enabled: false
+        }
+    },
+    chart: {
+        type: 'heatmap',
+        height: 260,
+        fontFamily: '"JetBrains Mono", monospace',
+        toolbar: {
+            show: false
+        }
+    },
+    title: {
+        text: "Nutrition Plan",
+        offsetY: 10,
+        style: {
+            color: "#000000"
+        }
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    noData: {
+        text: "Loading..."
+    },
+    series: []
+}
 
 var pushupStreaksChart = new ApexCharts(document.querySelector("#pushup-streaks"), pushupStreaks);
 var waterConsumptionChart = new ApexCharts(document.querySelector("#water-consumption"), waterConsumption);
@@ -654,6 +794,8 @@ var strengthGoalChart = new ApexCharts(document.querySelector("#strength-goal"),
 var bodyStrengthGoalChart = new ApexCharts(document.querySelector("#body-strength-goal"), bodyStrengthGoals);
 var bodyWeightChart = new ApexCharts(document.querySelector("#bodyweight-trend"), bodyWeight);
 var bodyFatChart = new ApexCharts(document.querySelector("#bodyfat-trend"), bodyFat);
+var trainingPlanChart = new ApexCharts(document.querySelector("#training-plan"), trainingPlan);
+var nutritionPlanChart = new ApexCharts(document.querySelector("#nutrition-plan"), nutritionPlan);
 
 pushupStreaksChart.render()
 waterConsumptionChart.render()
@@ -666,6 +808,43 @@ strengthGoalChart.render()
 bodyStrengthGoalChart.render()
 bodyWeightChart.render()
 bodyFatChart.render()
+trainingPlanChart.render()
+nutritionPlanChart.render()
+
+// FIXME -- Dirty hacked together version to get things working
+function formatTrainingData(json) {
+    json.forEach(function (month, index) {
+        month.data.forEach(function(day, dayIndex) {
+            switch(month.data[dayIndex].y) {
+                case 'Bol':
+                    this.data[dayIndex].y = 1; break;
+                case 'Per':
+                    this.data[dayIndex].y = 2; break;
+                case 'Aes':
+                    this.data[dayIndex].y = 3; break;
+            }
+        }, month);
+    }, json)
+    return json;
+}
+
+// FIXME -- Dirty hacked together version to get things working
+function formatNutritionData(json) {
+    json.forEach(function (month, index) {
+        month.data.forEach(function(day, dayIndex) {
+            switch(month.data[dayIndex].y) {
+                case 'Bulk':
+                    this.data[dayIndex].y = 1; break;
+                case 'Maintain':
+                    this.data[dayIndex].y = 2; break;
+                case 'Cut':
+                    this.data[dayIndex].y = 3; break;
+            }
+        }, month);
+    }, json)
+    return json;
+}
+
 
 $.getJSON('/chart-data/data.json', function (json) {
     pushupStreaksChart.updateSeries(json["pushup-data"]);
@@ -699,4 +878,7 @@ $.getJSON('/chart-data/data.json', function (json) {
             data: json["bodyfat-goal-data"],
         }
     ])
+
+    trainingPlanChart.updateSeries(formatTrainingData(json["training-plan-data"]));
+    nutritionPlanChart.updateSeries(formatNutritionData(json["nutrition-plan-data"]));
 });

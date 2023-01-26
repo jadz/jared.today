@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.card-quarter {
+    @apply flex flex-col col-span-full sm:col-span-3 xl:col-span-3 rounded shadow-md;
+}
+
 .card-half {
     @apply flex flex-col col-span-full sm:col-span-6 xl:col-span-6 rounded shadow-md;
 }

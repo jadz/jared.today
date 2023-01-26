@@ -24,12 +24,22 @@ def make_data_frame_from_list(list):
     cols = list.pop(0)
     df = pd.DataFrame(data=list, columns=cols)
     dfCols = df.columns
+
     # Set the Date column to be date time dType
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
 
-    # For every other column, make it numeric
-    df [dfCols[1:]] = df[cols[1:]].apply(pd.to_numeric, errors='coerce')
-    
+    string_cols = ['Programme', 'Phase']
+    ignore_cols = ['Date'] + string_cols
+
+    ## Go through columns we want to convert to numbers
+    cols_to_num = [i for i in df.columns if i not in ignore_cols]
+    for col in cols_to_num:
+        df[col] = df[col].apply(pd.to_numeric, errors='coerce')
+
+    ## Go through columns we want to conver to strings
+    for col in string_cols:
+        df[col] = df[col].astype(str)
+
     # Set the index of the data frame to be a date
     df.set_index(['Date'], inplace=True)
 
@@ -145,11 +155,15 @@ def single_line_graph_from_date(df, column, weeks, from_date):
 
     return reformatted_data
 
-def heatmap_data(df, column, months):
+def heatmap_data(df, column, months, value_as_num=True, show_historical_data=True, oldest_first=True):
     output_data = []
 
     for n in range(0,months):
-        start_month = (datetime.now().date() - relativedelta(months=n)).replace(day=1)
+        if (show_historical_data):
+            start_month = (datetime.now().date() - relativedelta(months=n)).replace(day=1)
+        else: 
+            start_month = (datetime.now().date() + relativedelta(months=n)).replace(day=1)
+
         end_month = start_month + relativedelta(months=1)
 
         data = df.query("Date >= @start_month and Date < @end_month")[column]
@@ -173,14 +187,19 @@ def heatmap_data(df, column, months):
         for index, item in data.items():
             points = {}
             points["x"] = index.strftime("%d")
-            points["y"] = np.nan_to_num(item)
+            points["y"] = np.nan_to_num(item) if value_as_num == True else item
             reformatted_data.append(points)
 
         month_data["data"] = reformatted_data
 
         output_data.append(month_data)
 
-    return output_data
+    # print(output_data)
+    if (oldest_first == True):
+        return output_data # Returns the list with oldest to newest
+    else:
+        return output_data[::-1] # Returns the list newest to oldest
+    # return output_data
 
 push_ups = heatmap_data(df, 'Push Up Count', 3)
 water_consumption = heatmap_data(df, 'Water Consumed', 3)
@@ -193,6 +212,8 @@ body_fat = single_line_graph_from_date(df, 'Body Fat', 12, datetime.strptime("01
 body_fat_goal = single_line_graph_from_date(df, 'Body Fat Goal', 12, datetime.strptime("01012023", "%d%m%Y"))
 body_weight = single_line_graph_from_date(df, 'Body Weight', 12, datetime.strptime("01012023", "%d%m%Y"))
 body_weight_goal = single_line_graph_from_date(df, 'Body Weight Goal', 12, datetime.strptime("01012023", "%d%m%Y"))
+training_plan = heatmap_data(df, 'Programme', 6, value_as_num=False, show_historical_data=False, oldest_first=False)
+nutrition_plan = heatmap_data(df, 'Phase', 6, value_as_num=False, show_historical_data=False, oldest_first=False)
 
 out = {}
 
@@ -209,6 +230,9 @@ out["body-weight-goal-data"] = body_weight_goal
 
 out["bodyfat-data"] = body_fat
 out["bodyfat-goal-data"] = body_fat_goal
+
+out["training-plan-data"] = training_plan
+out["nutrition-plan-data"] = nutrition_plan
 
 json_string = json.dumps(out)
 

@@ -84,6 +84,18 @@
   <span class="heading-h1">Current Stats</span>
   <section id="stats" class="block">
       <div class="grid grid-cols-12 gap-4 max-w-9xl mx-auto border-solid border-blue-500">
+        <!-- <div class="card-quarter bg-black">
+          <div id="">Card 1</div>
+        </div>
+        <div class="card-quarter bg-black">
+          <div id="">Card 2</div>
+        </div>
+        <div class="card-quarter bg-black">
+          <div id="">Card 3</div>
+        </div>
+        <div class="card-quarter bg-black">
+          <div id="">Card 4</div>
+        </div>-->
         <div class="card-full">
           <div id="calories"></div>
         </div>
@@ -117,6 +129,12 @@
         <div class="card-half">
           <div id="body-strength-goal"></div>
         </div>
+      </div>
+      <div class="card-full">
+        <div id="training-plan"></div>
+      </div>
+      <div class="card-full">
+        <div id="nutrition-plan"></div>
       </div>
   </section>
   {{ if .Site.Params.MixpanelApiKey }}
