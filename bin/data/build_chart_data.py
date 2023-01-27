@@ -20,6 +20,9 @@ from dateutil.relativedelta import relativedelta
 def calculate_calorie_percent(x,y):
     return (x-y)/x*100
 
+def calculate_calorie_diff(x,y):
+    return (x-y)
+
 def make_data_frame_from_list(list):
     cols = list.pop(0)
     df = pd.DataFrame(data=list, columns=cols)
@@ -44,6 +47,7 @@ def make_data_frame_from_list(list):
     df.set_index(['Date'], inplace=True)
 
     df['Calories Percent'] = df.apply(lambda x: calculate_calorie_percent(x['Calories Consumed'], x['Calories Burned']), axis=1)
+    df['Maintenance Calorie Diff'] = df.apply(lambda x: calculate_calorie_diff(x['Calories Consumed'], x['Calories Burned']), axis=1)
 
     return df
 
@@ -194,12 +198,10 @@ def heatmap_data(df, column, months, value_as_num=True, show_historical_data=Tru
 
         output_data.append(month_data)
 
-    # print(output_data)
     if (oldest_first == True):
         return output_data # Returns the list with oldest to newest
     else:
         return output_data[::-1] # Returns the list newest to oldest
-    # return output_data
 
 push_ups = heatmap_data(df, 'Push Up Count', 3)
 water_consumption = heatmap_data(df, 'Water Consumed', 3)
