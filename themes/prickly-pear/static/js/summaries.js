@@ -32,7 +32,7 @@ function buildLastWeekSummary(data) {
 
     element_target_calories.innerHTML = WEEKLY_TARGET_AVG_CALORIES;
     element_target_body_fat.innerHTML = WEEKLY_TARGET_BF_PERCENT + "%";
-    element_target_body_kg.innerHTML  = WEEKLY_TARGET_BW_KG;
+    element_target_body_kg.innerHTML  = WEEKLY_TARGET_BW_KG + "kg";
 
     var element_label_calories = document.getElementById("summary-lw-calorie-maintenance");
     var element_data_calories  = document.getElementById("summary-lw-calorie-maintenance-data");
@@ -70,7 +70,7 @@ function buildFourWeekSummary(data) {
 
     element_target_calories.innerHTML = FOUR_WEEK_TARGET_AVG_CALORIES;
     element_target_body_fat.innerHTML = FOUR_WEEK_TARGET_BF_PERCENT + "%";
-    element_target_body_kg.innerHTML  = FOUR_WEEK_TARGET_BW_KG;
+    element_target_body_kg.innerHTML  = FOUR_WEEK_TARGET_BW_KG + "kg";
 
     var element_label_calories = document.getElementById("summary-4w-calorie-maintenance");
     var element_data_calories  = document.getElementById("summary-4w-calorie-maintenance-data");
