@@ -654,19 +654,31 @@ var trainingPlan = {
                         from: 0,
                         to: 1,
                         color: "#DF6060",
-                        name: "Anabolic"
+                        name: "Weights - Anabolic"
                     },
                     {
                         from: 2,
                         to: 3,
                         color: "#FBBC07",
-                        name: "Performance"
+                        name: "Weights - Performance"
                     },
                     {
                         from: 3,
                         to: 4,
                         color: "#83D787",
-                        name: "Aesthetic"
+                        name: "Weights - Aesthetic"
+                    },
+                    {
+                        from: 4,
+                        to: 5,
+                        color: "#3E6391",
+                        name: "Swim"
+                    },
+                    {
+                        from: 5,
+                        to: 6,
+                        color: "#000",
+                        name: "Rest"
                     },
                 ]
             }
@@ -734,7 +746,7 @@ var nutritionPlan = {
                         to: 4,
                         color: "#83D787",
                         name: "Cut"
-                    },
+                    }
                 ]
             }
         }
@@ -822,6 +834,11 @@ function formatTrainingData(json) {
                     this.data[dayIndex].y = 2; break;
                 case 'Aes':
                     this.data[dayIndex].y = 3; break;
+                case 'Swim':
+                    this.data[dayIndex].y = 4; break;
+                case 'Rest':
+                    this.data[dayIndex].y = 5; break;
+
             }
         }, month);
     }, json)
