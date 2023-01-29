@@ -31,7 +31,7 @@ def make_data_frame_from_list(list):
     # Set the Date column to be date time dType
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
 
-    string_cols = ['Programme', 'Phase', 'Healthy or Sick']
+    string_cols = ['Programme', 'Phase', 'Healthy or Sick', 'Book', 'Fast Type']
     ignore_cols = ['Date'] + string_cols
 
     ## Go through columns we want to convert to numbers
