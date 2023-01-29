@@ -126,7 +126,6 @@ df = make_data_frame_from_list(validated_list_for_data_frame)
 def calculate_fat_loss(calorie_deficit):
     CALORIES_BURN_1KG_FAT = 7700
     return (calorie_deficit/CALORIES_BURN_1KG_FAT)
-
 def generate_summaries(df):
     today = datetime.strptime(datetime.today().strftime('%d%m%Y'), "%d%m%Y")
     monday_this_week = today - timedelta(days = today.weekday())
@@ -153,6 +152,7 @@ def generate_summaries(df):
     ## LAST WEEK
     ##########################################################################################
     # LAST WEEK - BODY WEEK
+    
     body_weight_diff_week = df.query("Date >= @monday_last_week and Date <= @until_day") \
        .groupby(pd.Grouper(freq='W', level='Date'))['Body Weight Difference'].sum()
 
@@ -172,7 +172,7 @@ def generate_summaries(df):
 
     calories_burn_maintenance_weekly = df.query("Date >= @monday_last_week and Date <= @until_day") \
         .groupby(pd.Grouper(freq='W', level='Date'))['Maintenance Calorie Diff'].sum()
-    
+
     ##########################################################################################
     ## 4 WEEKS AGO
     ##########################################################################################
@@ -192,7 +192,15 @@ def generate_summaries(df):
 
 
     output = {}
+    output["this-week-calorie-burn-maintenance"] = calorie_burn_averages_weekly.iloc[1]
+    output["this-week-calorie-burn-maintenance-sum"] = calories_burn_maintenance_weekly.iloc[1]
+    output["this-week-body-kg-diff"] = body_weight_diff_week.iloc[1]
+    output["this-week-body-kg-avg"] = body_weight_avg_week.iloc[1]
+    output["this-week-body-fat-diff"] = body_fat_diff_week.iloc[1]
+    output["this-week-body-fat-avg"] = body_fat_avg_week.iloc[1]
+
     output["last-week-calorie-burn-maintenance"] = calorie_burn_averages_weekly.iloc[0]
+    output["last-week-calorie-burn-maintenance-sum"] = calories_burn_maintenance_weekly.iloc[0]
     output["last-week-body-kg-diff"] = body_weight_diff_week.iloc[0]
     output["last-week-body-kg-avg"] = body_weight_avg_week.iloc[0]
     output["last-week-body-fat-diff"] = body_fat_diff_week.iloc[0]
@@ -201,7 +209,6 @@ def generate_summaries(df):
     output["last-4-week-calorie-burn-maintenance"] = calorie_burn_average_4_weeks
     output["last-4-week-body-kg-diff"] = calculate_fat_loss(calories_burn_total_maintenance_4_weeks)
     output["last-4-week-body-fat-diff"] = body_fat_diff_4_weeks
-
 
     json_string = json.dumps(output)
 

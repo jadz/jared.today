@@ -21,18 +21,54 @@ function positive_negative(target, value) {
 }
 
 $.getJSON('/summary-data/data.json', function (json) {
+    buildWeeklyTarget(json);
+    buildThisWeekSummary(json);
     buildLastWeekSummary(json);
     buildFourWeekSummary(json);
 });
 
-function buildLastWeekSummary(data) {
-    var element_target_calories = document.getElementById("summary-lw-target-calorie-maintenance-data");
-    var element_target_body_fat = document.getElementById("summary-lw-target-bf-percent-data");
-    var element_target_body_kg  = document.getElementById("summary-lw-target-bw-kg-data");
+function buildWeeklyTarget(data) {
+    var element_target_calories = document.getElementById("summary-w-target-calorie-maintenance-data");
+    var element_target_body_fat = document.getElementById("summary-w-target-bf-percent-data");
+    var element_target_body_kg  = document.getElementById("summary-w-target-bw-kg-data");
 
     element_target_calories.innerHTML = WEEKLY_TARGET_AVG_CALORIES;
     element_target_body_fat.innerHTML = WEEKLY_TARGET_BF_PERCENT + "%";
     element_target_body_kg.innerHTML  = WEEKLY_TARGET_BW_KG + "kg";
+}
+
+function buildThisWeekSummary(data) {
+
+    var element_label_calories = document.getElementById("summary-tw-calorie-maintenance");
+    var element_data_calories  = document.getElementById("summary-tw-calorie-maintenance-data");
+
+    var element_label_body_fat = document.getElementById("summary-tw-bf-percent");
+    var element_data_body_fat  = document.getElementById("summary-tw-bf-percent-data");
+
+    var element_label_body_kg  = document.getElementById("summary-tw-bw-kg");
+    var element_data_body_kg   = document.getElementById("summary-tw-bw-kg-data");
+
+    data_lw_calories     = r_2dec(data["this-week-calorie-burn-maintenance"]);
+    data_lw_body_fat     = r_2dec(data["this-week-body-fat-diff"]);
+    data_lw_body_fat_avg = r_2dec(data["this-week-body-fat-avg"]);
+    data_lw_body_kg      = r_2dec(data["this-week-body-kg-diff"]);
+    data_lw_body_kg_avg  = r_2dec(data["this-week-body-kg-avg"]);
+
+    element_label_calories.className = "summary-label-" + positive_negative(WEEKLY_TARGET_AVG_CALORIES, data_lw_calories)
+    element_data_calories.className  = "summary-data-"  + positive_negative(WEEKLY_TARGET_AVG_CALORIES, data_lw_calories)
+
+    element_label_body_fat.className = "summary-label-" + positive_negative(WEEKLY_TARGET_BF_PERCENT, data_lw_body_fat)
+    element_data_body_fat.className = "summary-data-" + positive_negative(WEEKLY_TARGET_BF_PERCENT, data_lw_body_fat)
+
+    element_label_body_kg.className = "summary-label-" + positive_negative(WEEKLY_TARGET_BW_KG, data_lw_body_kg)
+    element_data_body_kg.className = "summary-data-" + positive_negative(WEEKLY_TARGET_BW_KG, data_lw_body_kg)
+
+    element_data_calories.innerHTML = data_lw_calories;
+    element_data_body_fat.innerHTML = data_lw_body_fat + "% (" + data_lw_body_fat_avg + "%)";
+    element_data_body_kg.innerHTML = data_lw_body_kg + "kg (" + data_lw_body_kg_avg + ")";
+}
+
+function buildLastWeekSummary(data) {
 
     var element_label_calories = document.getElementById("summary-lw-calorie-maintenance");
     var element_data_calories  = document.getElementById("summary-lw-calorie-maintenance-data");
@@ -64,13 +100,13 @@ function buildLastWeekSummary(data) {
 }
 
 function buildFourWeekSummary(data) {
-    var element_target_calories = document.getElementById("summary-4w-target-calorie-maintenance-data");
-    var element_target_body_fat = document.getElementById("summary-4w-target-bf-percent-data");
-    var element_target_body_kg  = document.getElementById("summary-4w-target-bw-kg-data");
+    // var element_target_calories = document.getElementById("summary-4w-target-calorie-maintenance-data");
+    // var element_target_body_fat = document.getElementById("summary-4w-target-bf-percent-data");
+    // var element_target_body_kg  = document.getElementById("summary-4w-target-bw-kg-data");
 
-    element_target_calories.innerHTML = FOUR_WEEK_TARGET_AVG_CALORIES;
-    element_target_body_fat.innerHTML = FOUR_WEEK_TARGET_BF_PERCENT + "%";
-    element_target_body_kg.innerHTML  = FOUR_WEEK_TARGET_BW_KG + "kg";
+    // element_target_calories.innerHTML = FOUR_WEEK_TARGET_AVG_CALORIES;
+    // element_target_body_fat.innerHTML = FOUR_WEEK_TARGET_BF_PERCENT + "%";
+    // element_target_body_kg.innerHTML  = FOUR_WEEK_TARGET_BW_KG + "kg";
 
     var element_label_calories = document.getElementById("summary-4w-calorie-maintenance");
     var element_data_calories  = document.getElementById("summary-4w-calorie-maintenance-data");
