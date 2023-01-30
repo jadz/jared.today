@@ -48,24 +48,24 @@ function buildThisWeekSummary(data) {
     var element_label_body_kg  = document.getElementById("summary-tw-bw-kg");
     var element_data_body_kg   = document.getElementById("summary-tw-bw-kg-data");
 
-    data_lw_calories     = r_2dec(data["this-week-calorie-burn-maintenance"]);
-    data_lw_body_fat     = r_2dec(data["this-week-body-fat-diff"]);
-    data_lw_body_fat_avg = r_2dec(data["this-week-body-fat-avg"]);
-    data_lw_body_kg      = r_2dec(data["this-week-body-kg-diff"]);
-    data_lw_body_kg_avg  = r_2dec(data["this-week-body-kg-avg"]);
+    data_tw_calories     = r_2dec(data["this-week-calorie-burn-maintenance"]);
+    data_tw_body_fat     = r_2dec(data["this-week-body-fat-diff"]);
+    data_tw_body_fat_avg = r_2dec(data["this-week-body-fat-avg"]);
+    data_tw_body_kg      = r_2dec(data["this-week-body-kg-diff"]);
+    data_tw_body_kg_avg  = r_2dec(data["this-week-body-kg-avg"]);
 
-    element_label_calories.className = "summary-label-" + positive_negative(WEEKLY_TARGET_AVG_CALORIES, data_lw_calories)
-    element_data_calories.className  = "summary-data-"  + positive_negative(WEEKLY_TARGET_AVG_CALORIES, data_lw_calories)
+    element_label_calories.className = "summary-label-" + positive_negative(WEEKLY_TARGET_AVG_CALORIES, data_tw_calories)
+    element_data_calories.className  = "summary-data-"  + positive_negative(WEEKLY_TARGET_AVG_CALORIES, data_tw_calories)
 
-    element_label_body_fat.className = "summary-label-" + positive_negative(WEEKLY_TARGET_BF_PERCENT, data_lw_body_fat)
-    element_data_body_fat.className = "summary-data-" + positive_negative(WEEKLY_TARGET_BF_PERCENT, data_lw_body_fat)
+    element_label_body_fat.className = "summary-label-" + positive_negative(WEEKLY_TARGET_BF_PERCENT, data_tw_body_fat)
+    element_data_body_fat.className = "summary-data-" + positive_negative(WEEKLY_TARGET_BF_PERCENT, data_tw_body_fat)
 
-    element_label_body_kg.className = "summary-label-" + positive_negative(WEEKLY_TARGET_BW_KG, data_lw_body_kg)
-    element_data_body_kg.className = "summary-data-" + positive_negative(WEEKLY_TARGET_BW_KG, data_lw_body_kg)
+    element_label_body_kg.className = "summary-label-" + positive_negative(WEEKLY_TARGET_BW_KG, data_tw_body_kg)
+    element_data_body_kg.className = "summary-data-" + positive_negative(WEEKLY_TARGET_BW_KG, data_tw_body_kg)
 
-    element_data_calories.innerHTML = data_lw_calories;
-    element_data_body_fat.innerHTML = data_lw_body_fat + "% (" + data_lw_body_fat_avg + "%)";
-    element_data_body_kg.innerHTML = data_lw_body_kg + "kg (" + data_lw_body_kg_avg + ")";
+    element_data_calories.innerHTML = data_tw_calories;
+    element_data_body_fat.innerHTML = data_tw_body_fat + "% (" + data_tw_body_fat_avg + "%)";
+    element_data_body_kg.innerHTML = data_tw_body_kg + "kg (" + data_tw_body_kg_avg + ")";
 }
 
 function buildLastWeekSummary(data) {

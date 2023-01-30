@@ -154,24 +154,24 @@ def generate_summaries(df):
     # LAST WEEK - BODY WEEK
     
     body_weight_diff_week = df.query("Date >= @monday_last_week and Date <= @until_day") \
-       .groupby(pd.Grouper(freq='W', level='Date'))['Body Weight Difference'].sum()
+       .groupby(pd.Grouper(freq='W', level='Date'))['Body Weight Difference'].sum().fillna(0)
 
     body_weight_avg_week = df.query("Date >= @monday_last_week and Date <= @until_day") \
-       .groupby(pd.Grouper(freq='W', level='Date'))['Body Weight'].mean()
+       .groupby(pd.Grouper(freq='W', level='Date'))['Body Weight'].mean().fillna(0)
 
     # LAST WEEK - BODY FAT
     body_fat_diff_week = df.query("Date >= @monday_last_week and Date <= @until_day") \
-       .groupby(pd.Grouper(freq='W', level='Date'))['Body Fat Difference'].sum()
+       .groupby(pd.Grouper(freq='W', level='Date'))['Body Fat Difference'].sum().fillna(0)
 
     body_fat_avg_week = df.query("Date >= @monday_last_week and Date <= @until_day") \
-       .groupby(pd.Grouper(freq='W', level='Date'))['Body Fat'].mean()
+       .groupby(pd.Grouper(freq='W', level='Date'))['Body Fat'].mean().fillna(0)
 
     # LAST WEEK - ABOVE / BELOW MAINTENANCE
     calorie_burn_averages_weekly = df.query("Date >= @monday_last_week and Date <= @until_day") \
-       .groupby(pd.Grouper(freq='W', level='Date'))['Maintenance Calorie Diff'].mean()
+       .groupby(pd.Grouper(freq='W', level='Date'))['Maintenance Calorie Diff'].mean().fillna(0)
 
     calories_burn_maintenance_weekly = df.query("Date >= @monday_last_week and Date <= @until_day") \
-        .groupby(pd.Grouper(freq='W', level='Date'))['Maintenance Calorie Diff'].sum()
+        .groupby(pd.Grouper(freq='W', level='Date'))['Maintenance Calorie Diff'].sum().fillna(0)
 
     ##########################################################################################
     ## 4 WEEKS AGO
