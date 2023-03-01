@@ -564,7 +564,7 @@ bodyWeight = {
         width: [3,2]
     },
     yaxis: {
-        min: 100,
+        min: 90,
         labels: {
             formatter: function (y) {
                 return parseFloat(y).toFixed(2)
