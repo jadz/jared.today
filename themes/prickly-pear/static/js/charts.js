@@ -394,7 +394,7 @@ strengthGoals = {
         data: [
             {
                 x: 'Bench',
-                y: 60,
+                y: 65,
                 goals: [
                     {
                         name: 'Decent',
