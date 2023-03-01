@@ -258,8 +258,9 @@ var sleepHours = {
 var calories = {
     plotOptions: {
         heatmap: {
-            distributed: true,
-            monochrome: true,
+            distributed: false,
+            monochrome: false,
+            reverseNegativeShade: false,
             colorScale: {
                 ranges: [
                     {
@@ -299,8 +300,8 @@ var calories = {
                         name: "10%-19% UNDER"
                     },
                     {
-                        from: -100,
-                        to: -20,
+                        from: -500,
+                        to: -19,
                         color: "#178038",
                         name: ">= 20% UNDER"
                     }
