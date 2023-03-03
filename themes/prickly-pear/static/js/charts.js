@@ -884,6 +884,55 @@ $.getJSON('/chart-data/data.json', function (json) {
             data: json["body-weight-goal-data"],
         }
     ]);
+
+    healthy_sick = json["healthy-sick-data"]
+
+    annotationPoints = [];
+
+    healthy_sick.forEach(function(data) {
+        if (data.y == "") return
+        switch(data.y) {
+            case 'Sick':
+                backgroundColor = '#FF0000';
+                break;
+            case 'Healthy':
+                backgroundColor = '#84D787';
+                break;
+            case 'Travel':
+                backgroundColor = '#FCD052';
+                break;
+        }
+
+        annotationPoints.push({
+            x:data.x,
+            fillColor: 'red',
+            opacity: 0.2,
+            label: {
+                borderColor: '#000',
+                borderWidth: 1,
+                style: {
+                    fontSize: '9px',
+                    color: '#fff',
+                    background: backgroundColor,
+                },
+                offsetY: -10,
+                text: data.y,
+            },
+            marker: {
+                strokeWidth: 2,
+                strokeColor: backgroundColor
+            }
+        })
+    }, annotationPoints)
+
+    bodyWeightChart.updateOptions(
+        {
+            annotations: {
+                points: annotationPoints
+            },
+
+        }
+    )
     bodyFatChart.updateSeries([
         {
             name: 'body fat',

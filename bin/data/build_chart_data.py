@@ -203,6 +203,25 @@ def heatmap_data(df, column, months, value_as_num=True, show_historical_data=Tru
     else:
         return output_data[::-1] # Returns the list newest to oldest
 
+def most_word_occurrence(df, column, weeks, from_date):
+
+    monday_from_date = from_date - timedelta(days = from_date.weekday())
+    sunday_from_date = monday_from_date + timedelta(days=6)
+
+    monday_in_n_weeks = monday_from_date + timedelta(weeks=weeks)
+
+    df2 = df.query("Date < @monday_in_n_weeks and Date >= @monday_from_date") \
+    .groupby(pd.Grouper(freq='W', level='Date'))[column].apply(lambda x: x.value_counts().index[0])
+
+    reformatted_data = []
+    for index, item in df2.items():
+            points = {}
+            points["x"] = index.strftime("%d-%b")
+            points["y"] = np.nan_to_num(item)
+            reformatted_data.append(points)
+
+    return reformatted_data
+
 push_ups = heatmap_data(df, 'Push Up Count', 3)
 water_consumption = heatmap_data(df, 'Water Consumed', 3)
 calories = heatmap_data(df, 'Calories Percent', 6)
@@ -216,6 +235,7 @@ body_fat = single_line_graph_from_date(df, 'Body Fat', 18, datetime.strptime("01
 body_fat_goal = single_line_graph_from_date(df, 'Body Fat Goal', 18, datetime.strptime("01012023", "%d%m%Y"))
 training_plan = heatmap_data(df, 'Programme', 6, value_as_num=False, show_historical_data=False, oldest_first=False)
 nutrition_plan = heatmap_data(df, 'Phase', 6, value_as_num=False, show_historical_data=False, oldest_first=False)
+healthy_sick = most_word_occurrence(df, 'Healthy or Sick', 18, datetime.strptime("01012023", "%d%m%Y"))
 
 out = {}
 
@@ -232,6 +252,8 @@ out["body-weight-goal-data"] = body_weight_goal
 
 out["bodyfat-data"] = body_fat
 out["bodyfat-goal-data"] = body_fat_goal
+
+out["healthy-sick-data"] = healthy_sick
 
 out["training-plan-data"] = training_plan
 out["nutrition-plan-data"] = nutrition_plan
