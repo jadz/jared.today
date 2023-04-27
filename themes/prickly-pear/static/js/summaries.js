@@ -20,12 +20,12 @@ function positive_negative(target, value) {
     return (value >= target) ? "positive" : "negative"
 }
 
-$.getJSON('/summary-data/data.json', function (json) {
-    buildWeeklyTarget(json);
-    buildThisWeekSummary(json);
-    buildLastWeekSummary(json);
-    buildFourWeekSummary(json);
-});
+// $.getJSON('/summary-data/data.json', function (json) {
+//     buildWeeklyTarget(json);
+//     buildThisWeekSummary(json);
+//     buildLastWeekSummary(json);
+//     buildFourWeekSummary(json);
+// });
 
 function buildWeeklyTarget(data) {
     var element_target_calories = document.getElementById("summary-w-target-calorie-maintenance-data");

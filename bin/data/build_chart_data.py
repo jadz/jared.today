@@ -222,30 +222,17 @@ def most_word_occurrence(df, column, weeks, from_date):
 
     return reformatted_data
 
-push_ups = heatmap_data(df, 'Push Up Count', 3)
-water_consumption = heatmap_data(df, 'Water Consumed', 3)
 calories = heatmap_data(df, 'Calories Percent', 6)
-fiveam_streak = heatmap_data(df, '5AM Walk', 3)
-pages_read = heatmap_data(df, 'Pages Read', 3)
-sleep_hours = heatmap_data(df, 'Sleep Hours', 3)
-step_count = heatmap_data(df, 'Step Count', 3)
 body_weight = single_line_graph_from_date(df, 'Body Weight', 18, datetime.strptime("01012023", "%d%m%Y"))
 body_weight_goal = single_line_graph_from_date(df, 'Body Weight Goal', 18, datetime.strptime("01012023", "%d%m%Y"))
 body_fat = single_line_graph_from_date(df, 'Body Fat', 18, datetime.strptime("01012023", "%d%m%Y"))
 body_fat_goal = single_line_graph_from_date(df, 'Body Fat Goal', 18, datetime.strptime("01012023", "%d%m%Y"))
-training_plan = heatmap_data(df, 'Programme', 6, value_as_num=False, show_historical_data=False, oldest_first=False)
 nutrition_plan = heatmap_data(df, 'Phase', 6, value_as_num=False, show_historical_data=False, oldest_first=False)
 healthy_sick = most_word_occurrence(df, 'Healthy or Sick', 18, datetime.strptime("01012023", "%d%m%Y"))
 
 out = {}
 
-out["pushup-data"] = push_ups
-out["water-consumption-data"] = water_consumption
 out["calories-data"] = calories
-out["fiveam-data"] = fiveam_streak
-out["pages-read-data"] = pages_read
-out["sleep-data"] = sleep_hours
-out["step-count-data"] = step_count
 
 out["body-weight-data"] = body_weight
 out["body-weight-goal-data"] = body_weight_goal
@@ -255,7 +242,6 @@ out["bodyfat-goal-data"] = body_fat_goal
 
 out["healthy-sick-data"] = healthy_sick
 
-out["training-plan-data"] = training_plan
 out["nutrition-plan-data"] = nutrition_plan
 
 json_string = json.dumps(out)

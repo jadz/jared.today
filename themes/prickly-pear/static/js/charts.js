@@ -37,223 +37,6 @@ var baseHeatmapPlotOptions = {
         }
     }
 
-var pushupStreaks = {
-    plotOptions: baseHeatmapPlotOptions,
-    chart: baseHeatmapChart,
-    theme: {
-        palette: 'palette3',
-        monochrome: {
-            enabled: true,
-            shadeIntensity: 0,
-            color: pushUpGraphColor,
-        }
-    },
-    title: {
-        text: "Push Up Streak",
-        offsetY: 10,
-        style: {
-            color: pushUpHeaderColor
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    noData: {
-        text: "Loading..."
-    },
-    legend: {
-        fontSize: "8px"
-    },
-    series: [],
-    xaxis: {
-        labels: {
-            show: showAxisForScreen()
-        },
-        axisTicks: {
-            show: showAxisForScreen()
-        }
-
-    }
-}
-
-var stepCount = {
-    plotOptions: baseHeatmapPlotOptions,
-    chart: baseHeatmapChart,
-    theme: {
-        palette: 'palette3',
-        monochrome: {
-            enabled: true,
-            shadeIntensity: 0,
-            color: stepCountGraphColor,
-        }
-    },
-    title: {
-        text: "Step Count",
-        offsetY: 10,
-        style: {
-            color: stepCountHeaderColor
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    noData: {
-        text: "Loading..."
-    },
-    legend: {
-        fontSize: "8px"
-    },
-    series: [],
-    xaxis: {
-        labels: {
-            show: showAxisForScreen()
-        },
-        axisTicks: {
-            show: showAxisForScreen()
-        }
-
-    }
-}
-
-var waterConsumption = {
-    plotOptions: baseHeatmapPlotOptions,
-    chart: baseHeatmapChart,
-    theme: {
-        monochrome: {
-            enabled: true,
-            shadeIntensity: 0,
-            color: waterConsumptionGraphColor
-        }
-    },
-    title: {
-        text: "Water Consumption",
-        offsetY: 10,
-        style: {
-            color: waterConsumptionHeaderColor
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    noData: {
-        text: "Loading..."
-    },
-    series: [],
-    xaxis: {
-        labels: {
-            show: showAxisForScreen()
-        },
-        axisTicks: {
-            show: showAxisForScreen()
-        }
-
-    }
-}
-
-var fiveAMStreak = {
-    plotOptions: baseHeatmapPlotOptions,
-    chart: baseHeatmapChart,
-    theme: {
-        monochrome: {
-            enabled: true,
-            shadeIntensity: 0,
-            color: fiveAmGraphColor
-        }
-    },
-    title: {
-        text: "5am Walking",
-        offsetY: 10,
-        style: {
-            color: fiveAmHeaderColor
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    noData: {
-        text: "Loading..."
-    },
-    series: [ ],
-    xaxis: {
-        labels: {
-            show: showAxisForScreen()
-        },
-        axisTicks: {
-            show: showAxisForScreen()
-        }
-
-    }
-}
-
-var pagesReadStreak = {
-    plotOptions: baseHeatmapPlotOptions,
-    chart: baseHeatmapChart,
-    theme: {
-        monochrome: {
-            enabled: true,
-            shadeIntensity: 0,
-            color: pageStreakGraphColor
-        }
-    },
-    title: {
-        text: "Pages Read",
-        offsetY: 10,
-        style: {
-            color: pageStreakHeaderColor
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    noData: {
-        text: "Loading..."
-    },
-    series: [],
-    xaxis: {
-        labels: {
-            show: showAxisForScreen()
-        },
-        axisTicks: {
-            show: showAxisForScreen()
-        }
-
-    }
-}
-
-var sleepHours = {
-    plotOptions: baseHeatmapPlotOptions,
-    chart: baseHeatmapChart,
-    theme: {
-        monochrome: {
-            enabled: true,
-            shadeIntensity: 0,
-            color: sleepHourGraphColor,
-        }
-    },
-    title: {
-        text: "Sleep Hours",
-        offsetY: 10,
-        style: {
-            color: sleepHourGraphHeaderColor
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    noData: {
-        text: "Loading..."
-    },
-    series: [],
-    xaxis: {
-        labels: {
-            show: showAxisForScreen()
-        },
-        axisTicks: {
-            show: showAxisForScreen()
-        }
-
-    }
-}
 
 var calories = {
     plotOptions: {
@@ -643,85 +426,6 @@ bodyFat = {
     series: []
 }
 
-var trainingPlan = {
-    plotOptions: {
-        heatmap: {
-            distributed: true,
-            radius: 0,
-            monochrome: true,
-            colorScale: {
-                ranges: [
-                    {
-                        from: 0,
-                        to: 1,
-                        color: "#DF6060",
-                        name: "Weights - Anabolic"
-                    },
-                    {
-                        from: 2,
-                        to: 3,
-                        color: "#FBBC07",
-                        name: "Weights - Performance"
-                    },
-                    {
-                        from: 3,
-                        to: 4,
-                        color: "#83D787",
-                        name: "Weights - Aesthetic"
-                    },
-                    {
-                        from: 4,
-                        to: 5,
-                        color: "#3E6391",
-                        name: "Swim"
-                    },
-                    {
-                        from: 5,
-                        to: 6,
-                        color: "#000",
-                        name: "Rest"
-                    },
-                ]
-            }
-        }
-    },
-    xaxis: {
-        labels: {
-            show: showAxisForScreen()
-        },
-        axisTicks: {
-            show: showAxisForScreen()
-        },
-        type: 'category',
-
-    },
-    tooltip: {
-        enabled: false
-    },
-    chart: {
-        type: 'heatmap',
-        height: 260,
-        fontFamily: '"JetBrains Mono", monospace',
-        toolbar: {
-            show: false
-        }
-    },
-    title: {
-        text: "Training Plan",
-        offsetY: 10,
-        style: {
-            color: "#000000"
-        }
-    },
-    dataLabels: {
-        enabled: false,
-    },
-    noData: {
-        text: "Loading..."
-    },
-    series: []
-}
-
 var nutritionPlan = {
     plotOptions: {
         heatmap: {
@@ -747,6 +451,12 @@ var nutritionPlan = {
                         to: 4,
                         color: "#83D787",
                         name: "Cut"
+                    },
+                    {
+                        from: 4,
+                        to: 5,
+                        color: "#9EACAE",
+                        name: "To Plan"
                     }
                 ]
             }
@@ -796,55 +506,20 @@ var nutritionPlan = {
     series: []
 }
 
-var pushupStreaksChart = new ApexCharts(document.querySelector("#pushup-streaks"), pushupStreaks);
-var waterConsumptionChart = new ApexCharts(document.querySelector("#water-consumption"), waterConsumption);
-var fiveAMStreakChart = new ApexCharts(document.querySelector("#fiveam-streaks"), fiveAMStreak);
-var pageStreakChart = new ApexCharts(document.querySelector("#page-streaks"), pagesReadStreak);
-var sleepChart = new ApexCharts(document.querySelector("#sleep-hours"), sleepHours);
-var stepCountChart = new ApexCharts(document.querySelector("#step-count"), stepCount);
 var caloriesChart = new ApexCharts(document.querySelector("#calories"), calories);
 var strengthGoalChart = new ApexCharts(document.querySelector("#strength-goal"), strengthGoals);
 var bodyStrengthGoalChart = new ApexCharts(document.querySelector("#body-strength-goal"), bodyStrengthGoals);
 var bodyWeightChart = new ApexCharts(document.querySelector("#bodyweight-trend"), bodyWeight);
 var bodyFatChart = new ApexCharts(document.querySelector("#bodyfat-trend"), bodyFat);
-var trainingPlanChart = new ApexCharts(document.querySelector("#training-plan"), trainingPlan);
 var nutritionPlanChart = new ApexCharts(document.querySelector("#nutrition-plan"), nutritionPlan);
 
-pushupStreaksChart.render()
-waterConsumptionChart.render()
-fiveAMStreakChart.render()
-pageStreakChart.render()
-sleepChart.render()
-stepCountChart.render()
 caloriesChart.render()
 strengthGoalChart.render()
 bodyStrengthGoalChart.render()
 bodyWeightChart.render()
 bodyFatChart.render()
-trainingPlanChart.render()
 nutritionPlanChart.render()
 
-// FIXME -- Dirty hacked together version to get things working
-function formatTrainingData(json) {
-    json.forEach(function (month, index) {
-        month.data.forEach(function(day, dayIndex) {
-            switch(month.data[dayIndex].y) {
-                case 'Bol':
-                    this.data[dayIndex].y = 1; break;
-                case 'Per':
-                    this.data[dayIndex].y = 2; break;
-                case 'Aes':
-                    this.data[dayIndex].y = 3; break;
-                case 'Swim':
-                    this.data[dayIndex].y = 4; break;
-                case 'Rest':
-                    this.data[dayIndex].y = 5; break;
-
-            }
-        }, month);
-    }, json)
-    return json;
-}
 
 // FIXME -- Dirty hacked together version to get things working
 function formatNutritionData(json) {
@@ -857,6 +532,8 @@ function formatNutritionData(json) {
                     this.data[dayIndex].y = 2; break;
                 case 'Cut':
                     this.data[dayIndex].y = 3; break;
+                case 'To Plan':
+                    this.data[dayIndex].y = 4; break;
             }
         }, month);
     }, json)
@@ -865,12 +542,6 @@ function formatNutritionData(json) {
 
 
 $.getJSON('/chart-data/data.json', function (json) {
-    pushupStreaksChart.updateSeries(json["pushup-data"]);
-    waterConsumptionChart.updateSeries(json["water-consumption-data"]);
-    fiveAMStreakChart.updateSeries(json["fiveam-data"]);
-    pageStreakChart.updateSeries(json["pages-read-data"]);
-    sleepChart.updateSeries(json["sleep-data"]);
-    stepCountChart.updateSeries(json["step-count-data"]);
     caloriesChart.updateSeries(json["calories-data"]);
     bodyWeightChart.updateSeries([
         {
@@ -946,6 +617,5 @@ $.getJSON('/chart-data/data.json', function (json) {
         }
     ])
 
-    trainingPlanChart.updateSeries(formatTrainingData(json["training-plan-data"]));
     nutritionPlanChart.updateSeries(formatNutritionData(json["nutrition-plan-data"]));
 });

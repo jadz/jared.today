@@ -1,143 +1,3 @@
-var pushupStreaks = {
-    plotOptions: {
-        heatmap: {
-            distributed: false
-        }
-    },
-    chart: {
-        type: 'heatmap',
-        height: 160,
-        width: "100%",
-        fontFamily: '"JetBrains Mono", monospace',
-        toolbar: {
-            show: false
-        }
-    },
-    theme: {
-        palette: 'palette3',
-        monochrome: {
-            enabled: true,
-            color: "#4CAF50"
-        }
-    },
-    title: {
-        text: "Push Up Streak",
-        offsetY: 10,
-        style: {
-            color: "#4CAF50"
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    noData: {
-        text: "Loading..."
-    },
-    legend: {
-        fontSize: "8px"
-    },
-    series: []
-}
-
-var waterConsumption = {
-    plotOptions: {
-        heatmap: {
-            distributed: false
-        }
-    },
-    chart: {
-        type: 'heatmap',
-        height: 160,
-        fontFamily: '"JetBrains Mono", monospace',
-        toolbar: {
-            show: false
-        }
-    },
-    theme: {
-        monochrome: {
-            enabled: true,
-            color: "#03A9F4"
-        }
-    },
-    title: {
-        text: "Water Consumption",
-        offsetY: 10,
-        style: {
-            color: "#03A9F4"
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    series: []
-}
-
-var fiveAMStreak = {
-    plotOptions: {
-        heatmap: {
-            distributed: false
-        }
-    },
-    chart: {
-        type: 'heatmap',
-        height: 160,
-        fontFamily: '"JetBrains Mono", monospace',
-        toolbar: {
-            show: false
-        }
-    },
-    theme: {
-        monochrome: {
-            enabled: true,
-            color: "#03A9F4"
-        }
-    },
-    title: {
-        text: "5am Streak",
-        offsetY: 10,
-        style: {
-            color: "#03A9F4"
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    series: [ ]
-}
-
-var pagesReadStreak = {
-    plotOptions: {
-        heatmap: {
-            distributed: false
-        }
-    },
-    chart: {
-        type: 'heatmap',
-        height: 160,
-        fontFamily: '"JetBrains Mono", monospace',
-        toolbar: {
-            show: false
-        }
-    },
-    theme: {
-        monochrome: {
-            enabled: true,
-            color: "#03A9F4"
-        }
-    },
-    title: {
-        text: "Pages Read",
-        offsetY: 10,
-        style: {
-            color: "#03A9F4"
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    series: []
-}
-
 var calories = {
     plotOptions: {
         heatmap: {
@@ -186,44 +46,7 @@ var calories = {
                         color: "#CC0100",
                         name: "> 20% Over"
                     }
-                    // {
-                    //     from: 50,
-                    //     to: 25,
-                    //     color: "#178038",
-                    //     name: "really under"
-                    // },
-                    // {
-                    //     from: 24,
-                    //     to: 10,
-                    //     color: "#A8DAB5",
-                    //     name: "under"
-                    // },
-                    // {
-                    //     from: 9,
-                    //     to: 1,
-                    //     color: "#A8DAB5",
-                    //     name: "sufficient"
-                    // },
-                    // {
-                    //     from: -15,
-                    //     to: 0,
-                    //     color: "#CC0100",
-                    //     name: "really over"
-                    // },
-                    // {
-                    //     from: -16,
-                    //     to: -10,
-                    //     color: "#EA9999",
-                    //     name: "over"
-                    // },
-                    // {
-                    //     from: -11,
-                    //     to: -15,
-                    //     color: "#EFEFEF",
-                    //     name: "sufficient"
-                    // },
-
-            ]
+                ]
             }
 
         }
@@ -462,29 +285,17 @@ bodyFat = {
 }
 
 
-var pushupStreaksChart = new ApexCharts(document.querySelector("#pushup-streaks"), pushupStreaks);
-var waterConsumptionChart = new ApexCharts(document.querySelector("#water-consumption"), waterConsumption);
-var fiveAMStreakChart = new ApexCharts(document.querySelector("#fiveam-streaks"), fiveAMStreak);
-var pageStreakChart = new ApexCharts(document.querySelector("#page-streaks"), pagesReadStreak);
 var caloriesChart = new ApexCharts(document.querySelector("#calories"), calories);
 var strengthGoalChart = new ApexCharts(document.querySelector("#strength-goal"), strengthGoals);
 var bodyWeightChart = new ApexCharts(document.querySelector("#bodyweight-trend"), bodyWeight);
 var bodyFatChart = new ApexCharts(document.querySelector("#bodyfat-trend"), bodyFat);
 
-pushupStreaksChart.render()
-waterConsumptionChart.render()
-fiveAMStreakChart.render()
-pageStreakChart.render()
 caloriesChart.render()
 strengthGoalChart.render()
 bodyWeightChart.render()
 bodyFatChart.render()
 
 $.getJSON('/chart-data/data.json', function (json) {
-    pushupStreaksChart.updateSeries(json["pushup-data"]);
-    waterConsumptionChart.updateSeries(json["water-consumption-data"]);
-    fiveAMStreakChart.updateSeries(json["fiveam-data"]);
-    pageStreakChart.updateSeries(json["pages-read-data"]);
     caloriesChart.updateSeries(json["calories-data"]);
     bodyFatChart.updateSeries([
         {
