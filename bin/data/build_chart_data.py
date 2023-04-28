@@ -222,7 +222,7 @@ def most_word_occurrence(df, column, weeks, from_date):
 
     return reformatted_data
 
-start_date = "19022023"
+start_date = "14042023"
 
 calories = heatmap_data(df, 'Calories Percent', 6)
 body_weight = single_line_graph_from_date(df, 'Body Weight', 18, datetime.strptime(start_date, "%d%m%Y"))
