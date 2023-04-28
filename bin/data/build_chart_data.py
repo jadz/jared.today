@@ -31,7 +31,7 @@ def make_data_frame_from_list(list):
     # Set the Date column to be date time dType
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
 
-    string_cols = ['Programme', 'Phase', 'Healthy or Sick', 'Book', 'Fast Type']
+    string_cols = ['Programme', 'Phase', 'Healthy or Sick']
     ignore_cols = ['Date'] + string_cols
 
     ## Go through columns we want to convert to numbers
@@ -222,13 +222,15 @@ def most_word_occurrence(df, column, weeks, from_date):
 
     return reformatted_data
 
+start_date = "19022023"
+
 calories = heatmap_data(df, 'Calories Percent', 6)
-body_weight = single_line_graph_from_date(df, 'Body Weight', 18, datetime.strptime("01012023", "%d%m%Y"))
-body_weight_goal = single_line_graph_from_date(df, 'Body Weight Goal', 18, datetime.strptime("01012023", "%d%m%Y"))
-body_fat = single_line_graph_from_date(df, 'Body Fat', 18, datetime.strptime("01012023", "%d%m%Y"))
-body_fat_goal = single_line_graph_from_date(df, 'Body Fat Goal', 18, datetime.strptime("01012023", "%d%m%Y"))
+body_weight = single_line_graph_from_date(df, 'Body Weight', 18, datetime.strptime(start_date, "%d%m%Y"))
+body_weight_goal = single_line_graph_from_date(df, 'Body Weight Goal', 18, datetime.strptime(start_date, "%d%m%Y"))
+body_fat = single_line_graph_from_date(df, 'Body Fat', 18, datetime.strptime(start_date, "%d%m%Y"))
+body_fat_goal = single_line_graph_from_date(df, 'Body Fat Goal', 18, datetime.strptime(start_date, "%d%m%Y"))
 nutrition_plan = heatmap_data(df, 'Phase', 6, value_as_num=False, show_historical_data=False, oldest_first=False)
-healthy_sick = most_word_occurrence(df, 'Healthy or Sick', 18, datetime.strptime("01012023", "%d%m%Y"))
+healthy_sick = most_word_occurrence(df, 'Healthy or Sick', 18, datetime.strptime(start_date, "%d%m%Y"))
 
 out = {}
 
